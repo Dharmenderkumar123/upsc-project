@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.cmt.services.model.SubjectsModel" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackgroundBorderless"
+        android:paddingStart="25dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="25dp">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/hint_image"
+            bind:imageUrl="@{model.image}"
+            tools:src="@drawable/img_1" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_toEndOf="@+id/image"
+            android:text="@{model.title}"
+            android:textColor="@color/colorText"
+            app:autoSizeTextType="uniform"
+            tools:text="@string/txt_subject_title" />
+
+        <TextView
+            android:id="@+id/subDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toEndOf="@+id/image"
+            android:text="@{model.description}"
+            android:textColor="@color/colorText"
+            android:textSize="9sp"
+            tools:ignore="SmallSp"
+            tools:text="@string/text_dummy_text" />
+
+        <LinearLayout
+            android:id="@+id/layoutBtns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnMaterials"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/button_bg_with_stroke_10"
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="7dp"
+                android:text="@string/materials"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnWriteTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/button_bg_with_stroke_10"
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="7dp"
+                android:text="@string/write_test"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/button_bg_with_stroke_10"
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="7dp"
+                android:text="@string/result"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/iconsLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/subDescription"
+            android:layout_toEndOf="@+id/image"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginEnd="7dp"
+                android:contentDescription="@string/hint_image"
+                android:src="@drawable/mocktests" />
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginEnd="7dp"
+                android:contentDescription="@string/hint_image"
+                android:src="@drawable/video" />
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginEnd="7dp"
+                android:contentDescription="@string/hint_image"
+                android:src="@drawable/mobile" />
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginEnd="7dp"
+                android:contentDescription="@string/hint_image"
+                android:src="@drawable/material" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/layoutBtns"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorEditTextHint" />
+
+
+    </RelativeLayout>
+</layout>

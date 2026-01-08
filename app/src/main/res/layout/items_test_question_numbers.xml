@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.cmt.services.model.TestOptionsModel" />
+
+        <variable
+            name="questionCount"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/tvCount"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@drawable/bg_question_number"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@{questionCount}"
+            android:textColor="@color/colorText"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="1" />
+
+        <!--android:backgroundTint="@{model.selectedQues ? @color/colorYellow : @color/colorEditTextHint}"-->
+
+
+    </LinearLayout>
+
+
+</layout>

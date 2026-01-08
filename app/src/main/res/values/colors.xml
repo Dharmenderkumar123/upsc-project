@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#84174E</color>
+    <color name="colorTheme">#FFF4D6</color>
+    <color name="bottomBarColor">#7A1E3A</color>
+<!--    <color name="colorTheme">#89B8F9</color>-->
+    <color name="colorTrans">#08000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorAccent">#000000</color>
+
+    <color name="allEditTextBackground">#F5F5F5</color>
+    <color name="colorEditTextHint">#818EA1</color>
+    <color name="colorDarkGrey">#606060</color>
+    <color name="black_transparent">#2D000000</color>
+    <color name="colorRed">#FF5781</color>
+    <color name="colorArrow">#933465</color>
+    <color name="colorText">#000000</color>
+    <color name="colorCirclebackground">#e6d0db</color>
+    <color name="colorTextRed">#EF0A0A</color>
+    <color name="colorTextOrange">#E66C0E</color>
+    <color name="colorYellow">#e6a60e</color>
+    <color name="colorBlue">#3e6faa</color>
+
+    <color name="colorCat1">#1365D5</color>
+    <color name="colorCat2">#F29D48</color>
+    <color name="colorCat3">#759B61</color>
+    <color name="colorCat4">#DF8164</color>
+    <color name="colorCat5">#C5DBA9</color>
+    <color name="colourLightGrey">#F6F7FC</color>
+    <color name="colourDarkBlue">#2960A1</color>
+    <color name="newBgColor">#F7CC7E</color>
+
+    <!--        -->
+    <!--        <color name="colorLightRed">#FC3F18</color>-->
+    <!--        <color name="colorBlue">#1F5DD5</color>-->
+    <!--        <color name="colorDarkGrey">#AAAAAF</color>-->
+    <!--        <color name="colorDarkGold">#F9A512</color>-->
+
+
+</resources>

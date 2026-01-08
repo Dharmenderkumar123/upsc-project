@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "134490548666",
+    "project_id": "the-pride-ias",
+    "storage_bucket": "the-pride-ias.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134490548666:android:08804cb4bf78391f025583",
+        "android_client_info": {
+          "package_name": "com.the_pride_ias"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134490548666-gu80120joj6m919c8584f4dssnft8uk2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYCR17O4FaAUnFiwJnjIWnacH3CEB7yBk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134490548666-gu80120joj6m919c8584f4dssnft8uk2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

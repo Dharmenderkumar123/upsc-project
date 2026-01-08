@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <variable
+            name="model"
+            type="com.cmt.services.model.Courses" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/testItemLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackgroundBorderless"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:id="@+id/menuItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@string/txt_agricet"
+            android:text="@{model.category_name}"
+            android:textColor="@color/colorText"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeMinTextSize="13sp"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:drawablePadding="20dp"
+            app:autoSizeTextType="uniform"
+            app:drawableEndCompat="@drawable/arrow__1_"
+            app:drawableTint="@color/colorPrimary" />
+
+    </LinearLayout>
+</layout>

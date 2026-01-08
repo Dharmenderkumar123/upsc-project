@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.cmt.services.model.MockTestModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_mock_test"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackgroundBorderless"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="2dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="12dp"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/hint_image"
+                bind:imageUrl="@{model.image}"
+                tools:src="@drawable/test_start" />
+
+            <TextView
+                android:id="@+id/mockTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_toStartOf="@+id/testBtn"
+                android:layout_toEndOf="@+id/image"
+                android:text="@{model.title}"
+                android:textColor="@color/colorText"
+                android:textStyle="bold"
+                app:autoSizeMaxTextSize="15sp"
+                app:autoSizeMinTextSize="13sp"
+                app:autoSizeTextType="uniform"
+                tools:text="@string/txt_mocktest_title" />
+
+            <TextView
+                android:id="@+id/dummyContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mockTest"
+                android:layout_toStartOf="@+id/testBtn"
+                android:layout_toEndOf="@+id/image"
+                android:textColor="@color/colorDarkGrey"
+                android:textSize="9sp"
+                bind:htmlText="@{model.description}"
+                android:justificationMode="inter_word"
+                tools:ignore="SmallSp"
+                tools:text="@string/text_dummy_text" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/testBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_edit_10dp"
+                android:backgroundTint="@color/colorTheme"
+                android:paddingStart="15dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="5dp"
+                android:text="@string/txt_text"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite" />
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

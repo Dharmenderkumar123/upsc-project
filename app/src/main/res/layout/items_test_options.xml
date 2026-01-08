@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.cmt.services.model.TestOptionsModel" />
+    </data>
+
+
+
+    <LinearLayout
+        android:id="@+id/optionsTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="15dp"
+        android:background="@{model.selected? @drawable/bg_selected_option : @drawable/bg_edit_10dp, default=`@drawable/bg_edit_10dp`}"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="@{model.option1}"
+            android:textColor="@color/colorText"
+            android:textSize="18sp"
+            tools:text="@string/txt_robin_van_persie" />
+    </LinearLayout>
+</layout>

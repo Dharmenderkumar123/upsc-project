@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.cmt.viewModel.fragment.ProfileVM" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorWhite"
+        tools:context=".view.fragment.ProfileFragment">
+
+        <RelativeLayout
+            android:id="@+id/profileLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#194E4C4C"
+            android:paddingStart="10dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="15dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="@string/hint_image"
+                android:padding="5dp" />
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/editProfileBtn"
+                android:layout_toEndOf="@+id/profileImage"
+                android:text="@{viewModel.data.name}"
+                android:textColor="@color/colorText"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/mail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/userName"
+                android:layout_toStartOf="@+id/editProfileBtn"
+                android:layout_toEndOf="@+id/profileImage"
+                android:text="@{viewModel.data.email}"
+                android:textColor="@color/colorText"
+                android:textSize="12sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/editProfileBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/bg_edit_10dp"
+                android:backgroundTint="@color/colorTheme"
+                android:onClick="@{viewModel::updateProfile}"
+                android:paddingStart="10dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="8dp"
+                android:text="@string/txt_edit_profile"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:id="@+id/progressLay"
+                android:layout_marginHorizontal="15dp"
+                android:elevation="10dp"
+                android:layout_below="@id/editProfileBtn">
+                <TextView
+                    android:id="@+id/menuItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_my_progress_points"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/bottomBarColor"
+                    app:autoSizeMaxTextSize="16sp"
+                    app:autoSizeMinTextSize="13sp"
+                    app:autoSizeTextType="uniform"
+                     />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:text="20.0"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="@color/bottomBarColor"
+                    android:layout_centerVertical="true"
+                    app:autoSizeMaxTextSize="16sp"
+                    app:autoSizeMinTextSize="13sp"
+                    app:autoSizeTextType="uniform" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profileLayout"
+            android:layout_marginTop="9dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/items_profile_menu" />
+
+    </RelativeLayout>
+</layout>

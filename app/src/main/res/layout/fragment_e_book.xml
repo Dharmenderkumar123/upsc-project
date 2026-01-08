@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.cmt.viewModel.fragment.EBookVM" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        tools:context=".view.fragment.EBookFragment">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="#F6F7FC"
+            android:padding="10dp"
+            android:text="@string/txt_choose_courses"
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            android:textStyle="bold"
+            app:autoSizeMaxTextSize="25sp"
+            app:autoSizeMinTextSize="13sp"
+            app:autoSizeTextType="uniform" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/items_total_list_ebook" />
+
+
+    </LinearLayout>
+</layout>

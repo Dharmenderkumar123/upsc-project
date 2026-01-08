@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/home"
+        android:title="@string/menu_home" />
+    <!--<item
+        android:id="@+id/categories"
+        android:icon="@drawable/categories"
+        android:title="@string/menu_categories" />-->
+    <item
+        android:id="@+id/online_tests"
+        android:icon="@drawable/online_tests"
+        android:title="@string/cources" />
+    <item
+        android:id="@+id/current_affairs"
+        android:icon="@drawable/online_tests"
+        android:title="@string/menu_current_affairs" />
+    <!--<item
+        android:id="@+id/ebook"
+        android:icon="@drawable/e_book"
+        android:title="@string/menu_ebook" />-->
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/profile"
+        android:title="@string/menu_profile" />
+
+</menu>
