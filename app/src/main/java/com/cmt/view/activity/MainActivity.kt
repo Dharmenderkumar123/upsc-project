@@ -20,6 +20,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.the_pride_ias.R
 import com.the_pride_ias.databinding.ActivityMainBinding
 
+
+
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     lateinit var binding: ActivityMainBinding
     var doubleBackToExitPressedOnce = false
