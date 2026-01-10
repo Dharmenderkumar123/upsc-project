@@ -33,7 +33,8 @@
                 android:focusable="true"
                 android:foreground="?selectableItemBackgroundBorderless"
                 android:padding="5dp"
-                android:src="@drawable/close" />
+                android:src="@drawable/close"
+                app:tint="@android:color/black" />
 
             <TextView
                 android:id="@+id/title"
@@ -44,7 +45,7 @@
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:text="@string/txt_agricet"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorAccent"
                 android:textSize="22sp"
                 tools:text="Agricetansdbamsbdmasbdasmndba" />
 
