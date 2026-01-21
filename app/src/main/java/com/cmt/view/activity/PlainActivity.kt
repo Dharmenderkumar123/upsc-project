@@ -41,6 +41,10 @@ class PlainActivity : BaseActivity() {
                     binding.tvTitle.text = intent.getStringExtra(IConstants.IntentStrings.payload)
                     loadFragment(MyCoursesFragment())
                 }
+                IConstants.FragmentType.BuyPlan -> {
+                    binding.tvTitle.text = intent.getStringExtra(IConstants.IntentStrings.payload)
+                    loadFragment(BuyPlanFragment())
+                }
                 IConstants.ProfileType.My_Material -> {
                     binding.tvTitle.text = intent.getStringExtra(IConstants.IntentStrings.payload)
                     loadFragment(MyMaterialsFragment())
@@ -65,9 +69,16 @@ class PlainActivity : BaseActivity() {
                     loadFragment(HelpAndSupportFragment())
                 }
                 IConstants.ProfileType.About_us -> {
-                    binding.tvTitle.text = getString(R.string.tit_about_us)
+                    binding.tvTitle.text = getString(R.string.privacy_policy)
                     val fragment = CmsFragment()
                     fragment.type = IConstants.ProfileType.About_us
+                    loadFragment(fragment)
+                }
+
+                IConstants.ProfileType.Refund_policy -> {
+                    binding.tvTitle.text = getString(R.string.refund_policy)
+                    val fragment = CmsFragment()
+                    fragment.type = IConstants.ProfileType.Refund_policy
                     loadFragment(fragment)
                 }
 

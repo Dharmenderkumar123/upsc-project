@@ -45,7 +45,9 @@ class YoutubeVideoPlayActivity : AppCompatActivity() {
 
         if (intent.hasExtra(IConstants.IntentStrings.youtubeId)) {
             videoKey = intent.getStringExtra(IConstants.IntentStrings.youtubeId)
-            val videoUrl = "https://player.vimeo.com/video/" + videoKey
+            val videoUrl = videoKey?.replace("\\", "")
+//            val videoUrl = "https://player.vimeo.com/video/" + videoKey
+//            val videoUrl = "https://player.vimeo.com/video/${videoKey}?h=e5565b56ac"
             // val videoUrl = "https://player.vimeo.com/video/" + "758953781"
             //"https://player.vimeo.com/video/"+"137805268"
             Log.d("sdhfjbs", "onCreate: ${videoUrl}")
@@ -56,19 +58,69 @@ class YoutubeVideoPlayActivity : AppCompatActivity() {
 
 
     private fun playVideo(id: String) {
-        val data_html =
-            "<!DOCTYPE html><html> <head> <meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"target-densitydpi=high-dpi\" /> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <link rel=\"stylesheet\"  href=\"hdpi.css\" /></head> <body style=\"background:black;margin:0 0 0 0; padding:0 0 0 0;\"><iframe src=\"$id?autoplay=1\" \n\" +\n" +
-                    "        \"        width=\"100%\" \n\" +\n" +
-                    "        \"        height=\"100%\" \n\" +\n" +
-                    "        \"        frameborder=\"0\" \n\" +\n" +
-                    "        \"        webkitallowfullscreen mozallowfullscreen allowfullscreen style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" ></iframe> </body> </html> "
+        binding.webView.settings.apply {
+            javaScriptEnabled = true // Required for iframe players
+            domStorageEnabled = true // Often required by video players
+            mediaPlaybackRequiresUserGesture = false // Allows autoplay=1 to work
+        }
+        binding.webView.webViewClient = WebViewClient()
+
+//
+//        val data_html =
+//            "<!DOCTYPE html><html> <head> <meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"target-densitydpi=high-dpi\" /> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <link rel=\"stylesheet\"  href=\"hdpi.css\" /></head> <body style=\"background:black;margin:0 0 0 0; padding:0 0 0 0;\"><iframe src=\"$id?autoplay=1\" \n\" +\n" +
+//                    "        \"        width=\"100%\" \n\" +\n" +
+//                    "        \"        height=\"100%\" \n\" +\n" +
+//                    "        \"        frameborder=\"0\" \n\" +\n" +
+//                    "        \"        webkitallowfullscreen mozallowfullscreen allowfullscreen style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" ></iframe> </body> </html> "
+//
+//
+//        binding.webView.loadData(
+//            data_html,
+//            "text/html",
+//            "UTF-8"
+//        )
+
+//                    val data_html = """
+//                <!DOCTYPE html>
+//                <html>
+//                <head>
+//                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//                    <style>
+//                        body, html { margin: 0; padding: 0; height: 100%; width: 100%; background: black; }
+//                        iframe { border: none; }
+//                    </style>
+//                </head>
+//                <body>
+//                    <iframe
+//                        src="$id?autoplay=1"
+//                        width="100%"
+//                        height="100%"
+//                        allow="autoplay; fullscreen"
+//                        style="position:absolute;top:0;left:0;width:100%;height:100%;">
+//                    </iframe>
+//                </body>
+//                </html>
+//            """.trimIndent()
+//
+//        binding.webView.loadDataWithBaseURL(null, data_html, "text/html", "UTF-8", null)
 
 
-        binding.webView.loadData(
-            data_html,
-            "text/html",
-            "UTF-8"
-        )
+
+        binding.webView.apply {
+            // 1. Essential Settings
+            settings.javaScriptEnabled = true
+            settings.domStorageEnabled = true
+
+            // 2. Allow the video to play without the user clicking it
+            settings.mediaPlaybackRequiresUserGesture = false
+
+            // 3. Optional: Handle navigation inside the view
+            webViewClient = WebViewClient()
+
+            // 4. Load the URL directly
+            loadUrl(id)
+        }
+//        loadWebView(id)
     }
 
     private fun loadWebView(url: String) {

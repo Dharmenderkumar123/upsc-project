@@ -47,9 +47,9 @@ class ProfileVM : ViewModel() {
                     val apiResponse = response as? APIResponse<*>
                     if (apiResponse?.error_code == IConstants.Response.valid) {
                         val dataResponse = apiResponse.data as? UserDetailsModel
-                        data.value = dataResponse
+                        data.value = dataResponse!!
                         Glide.with(activity)
-                            .load(dataResponse?.profile_image)
+                            .load(dataResponse.profile_image)
                             .placeholder(R.drawable.pride_ias_logo)
                             .into(binding.profileImage)
                     } else {
@@ -134,11 +134,16 @@ class ProfileVM : ViewModel() {
         )
         items.add(
             ProfileMenuModel(
-                context.getString(R.string.tit_about_us),
+                context.getString(R.string.privacy_policy),
                 R.drawable.ic_about_uss,
                 IConstants.ProfileType.About_us
-            )
-        )
+            ))
+
+        items.add(ProfileMenuModel(
+                context.getString(R.string.refund_policy),
+                R.drawable.ic_about_uss,
+                IConstants.ProfileType.Refund_policy))
+
         items.add(
             ProfileMenuModel(
                 context.getString(R.string.tit_log_out),

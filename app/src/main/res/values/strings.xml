@@ -93,6 +93,8 @@
     <string name="tit_help_support">Help and Support</string>
     <string name="tit_faq">Faq</string>
     <string name="tit_about_us">About Us</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="refund_policy">Refund Policy</string>
     <string name="tit_log_out">Logout</string>
     <string name="title_online_tests">Online Tests</string>
     <string name="tit_categories">Categories</string>

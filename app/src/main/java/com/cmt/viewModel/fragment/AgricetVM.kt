@@ -125,42 +125,49 @@ class AgricetVM : ViewModel() {
     }
 
     fun createOrderId(view: View) {
-        val activity = view.context as? PlainActivity
-        activity?.activityLoader(true)
-        val params = getGlobalParams(view.context)
-        subjectsData.value?.price.toString().let {
-            params[IConstants.Params.grand_total] = it
-        }
-        AppPreferences().getUserId(view.context).let {
-            params[IConstants.Params.user_id] = it
-        }
-        params[IConstants.Params.package_id] = package_id.toString()
 
-        PaymentAPI().generateOrderId(params, object : RetrofitCallBack {
-            override fun responseListener(response: Any?, error: String?) {
-                activity?.activityLoader(false)
-                if (error != null) {
-                    activity?.setSnackBar(error)
-                } else {
-                    val apiResponse = response as? JSONObject
-                    if (apiResponse != null) {
-                        try {
-                            if (apiResponse.getString("error_code") == IConstants.Response.valid) {
-                                openPaymentActivity.value = apiResponse.getJSONObject("data")
-                                val jsonObject = apiResponse.getJSONObject("data")
-                                order_id = jsonObject.getString("order_id")
-                            } else {
-                                activity?.setSnackBar(apiResponse.getString("message"))
-                            }
-                        } catch (e: Exception) {
-                            activity?.setSnackBar(e.localizedMessage)
-                        }
-                    } else {
-                        activity?.setSnackBar("Connect to developer")
-                    }
-                }
-            }
+        val intent = Intent(view.context, PlainActivity::class.java)
+        intent.putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.BuyPlan)
+        intent.putExtra(IConstants.IntentStrings.payload, "Buy Plan")
+        view.context.startActivity(intent)
+        (view.context as FragmentActivity).overridePendingTransition(R.anim.enter, R.anim.exit)
 
-        })
+//        val activity = view.context as? PlainActivity
+//        activity?.activityLoader(true)
+//        val params = getGlobalParams(view.context)
+//        subjectsData.value?.price.toString().let {
+//            params[IConstants.Params.grand_total] = it
+//        }
+//        AppPreferences().getUserId(view.context).let {
+//            params[IConstants.Params.user_id] = it
+//        }
+//        params[IConstants.Params.package_id] = package_id.toString()
+//
+//        PaymentAPI().generateOrderId(params, object : RetrofitCallBack {
+//            override fun responseListener(response: Any?, error: String?) {
+//                activity?.activityLoader(false)
+//                if (error != null) {
+//                    activity?.setSnackBar(error)
+//                } else {
+//                    val apiResponse = response as? JSONObject
+//                    if (apiResponse != null) {
+//                        try {
+//                            if (apiResponse.getString("error_code") == IConstants.Response.valid) {
+//                                openPaymentActivity.value = apiResponse.getJSONObject("data")
+//                                val jsonObject = apiResponse.getJSONObject("data")
+//                                order_id = jsonObject.getString("order_id")
+//                            } else {
+//                                activity?.setSnackBar(apiResponse.getString("message"))
+//                            }
+//                        } catch (e: Exception) {
+//                            activity?.setSnackBar(e.localizedMessage)
+//                        }
+//                    } else {
+//                        activity?.setSnackBar("Connect to developer")
+//                    }
+//                }
+//            }
+//
+//        })
     }
 }

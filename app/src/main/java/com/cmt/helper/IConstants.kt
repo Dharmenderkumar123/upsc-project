@@ -39,6 +39,7 @@ interface IConstants {
         const val SubCourse = "SubCourse"
         const val ReviewAnswer = "ReviewAnswer"
         const val AgricetCategory = "AgricetCategory"
+        const val BuyPlan = "BuyPlan"
         const val CourseDescription = "CourseDescription"
         const val Subjects = "Subjects"
         const val Categories = "Categories"
@@ -140,6 +141,7 @@ interface IConstants {
         const val Help_Support = "Help_Support"
         const val Faq = "Faq"
         const val About_us = "About_us"
+        const val Refund_policy = "Refund_policy"
         const val Logout = "Logout"
 
     }

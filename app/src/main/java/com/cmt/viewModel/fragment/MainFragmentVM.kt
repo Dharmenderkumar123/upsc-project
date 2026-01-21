@@ -133,7 +133,7 @@ class MainFragmentVM : ViewModel() {
                     val apiResponse = response as? APIResponse<*>
                     if (apiResponse?.error_code == IConstants.Response.valid) {
                         val dataResponse = apiResponse.data as? UserDetailsModel
-                        data.value = dataResponse
+                        data.value = dataResponse!!
                     } else {
                         apiResponse?.message?.let { activity.setSnackBar(it) }
                     }

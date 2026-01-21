@@ -26,15 +26,13 @@ class CmsViewModel : ViewModel() {
                     val apiResponse = response as? APIResponse<*>
                     if (apiResponse?.error_code == IConstants.Response.valid) {
                         val dataResponse = apiResponse.data as? CMSModel
-                        data.value = dataResponse
+                        data.value = dataResponse!!
                     } else {
                         apiResponse?.message?.let { activity?.setSnackBar(it) }
                     }
                 }
             }
-
         })
-
     }
 
     fun termsAPI(view: View) {
@@ -49,13 +47,12 @@ class CmsViewModel : ViewModel() {
                     val apiResponse = response as? APIResponse<*>
                     if (apiResponse?.error_code == IConstants.Response.valid) {
                         val dataResponse = apiResponse.data as? CMSModel
-                        data.value = dataResponse
+                        data.value = dataResponse!!
                     } else {
                         apiResponse?.message?.let { activity?.setSnackBar(it) }
                     }
                 }
             }
-
         })
 
     }

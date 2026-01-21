@@ -19,7 +19,7 @@ class SampleVideoListAdapter(val context: Context, val dataset: MutableList<Samp
             binding.model = datamodel
             binding.playBtn.setOnClickListener {
                 val intent = Intent(context, YoutubeVideoPlayActivity::class.java)
-                intent.putExtra(IConstants.IntentStrings.youtubeId, datamodel.you_tube_video_code)
+                intent.putExtra(IConstants.IntentStrings.youtubeId, datamodel.description)
                 context.startActivity(intent)
             }
         }

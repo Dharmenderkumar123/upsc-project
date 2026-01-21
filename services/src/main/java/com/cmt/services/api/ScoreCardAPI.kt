@@ -22,10 +22,7 @@ class ScoreCardAPI {
                 retrofitCallBack.responseListener(response.body())
             }
 
-            override fun onFailure(
-                call: Call<APIResponse<SubmitedAnswerModel>>,
-                t: Throwable
-            ) {
+            override fun onFailure(call: Call<APIResponse<SubmitedAnswerModel>>, t: Throwable) {
                 val error = t.message ?: "Not found"
                 retrofitCallBack.responseListener(response = null, error = error)
             }

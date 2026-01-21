@@ -61,17 +61,11 @@ class TestModuleAPI {
             APIClient().getInstance().create(TestModuleService::class.java)
         val call: Call<APIResponse<SubmitedAnswerModel>> = client.submitAnswers(params)
         call.enqueue(object : Callback<APIResponse<SubmitedAnswerModel>> {
-            override fun onResponse(
-                call: Call<APIResponse<SubmitedAnswerModel>>,
-                response: Response<APIResponse<SubmitedAnswerModel>>
-            ) {
+            override fun onResponse(call: Call<APIResponse<SubmitedAnswerModel>>, response: Response<APIResponse<SubmitedAnswerModel>>) {
                 retrofitCallBack.responseListener(response.body())
             }
 
-            override fun onFailure(
-                call: Call<APIResponse<SubmitedAnswerModel>>,
-                t: Throwable
-            ) {
+            override fun onFailure(call: Call<APIResponse<SubmitedAnswerModel>>, t: Throwable) {
                 val error = t.message ?: "Not found"
                 retrofitCallBack.responseListener(response = null, error = error)
             }
