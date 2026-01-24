@@ -1,7 +1,9 @@
 package com.cmt.viewModel.fragment
 
+import android.content.Intent
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import com.cmt.adapter.CoursesSubCategoryAdapter
 import com.cmt.helper.IConstants
@@ -14,6 +16,8 @@ import com.cmt.services.model.Courses
 import com.cmt.services.model.SubCourseModel
 import com.cmt.view.activity.FullPlainActivity
 import com.cmt.view.activity.MainActivity
+import com.cmt.view.activity.PlainActivity
+import com.the_pride_ias.R
 import com.the_pride_ias.databinding.FragmentSubCourseBinding
 
 class SubcourseVM : ViewModel() {
@@ -51,5 +55,13 @@ class SubcourseVM : ViewModel() {
         })
     }
 
+
+    fun buyNow(view: View) {
+        val intent = Intent(view.context, PlainActivity::class.java)
+        intent.putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.BuyPlan)
+        intent.putExtra(IConstants.IntentStrings.payload, "Buy Plan")
+        view.context.startActivity(intent)
+        (view.context as FragmentActivity).overridePendingTransition(R.anim.enter, R.anim.exit)
+    }
 
 }

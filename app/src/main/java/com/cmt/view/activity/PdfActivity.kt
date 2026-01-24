@@ -1,33 +1,39 @@
 package com.cmt.view.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
-import android.webkit.ConsoleMessage
-import android.webkit.WebChromeClient
+import android.util.TypedValue
+import android.view.MotionEvent
+import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.cmt.helper.IConstants
+import com.cmt.helper.PdfPageLockDecorator
+import com.cmt.helper.VerticalSeekBar
 import com.cmt.viewModel.activity.PdfActivityVM
-import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
-import com.github.barteksc.pdfviewer.util.FitPolicy
 import com.rajat.pdfviewer.PdfRendererView
-import com.rajat.pdfviewer.PdfViewerActivity
 import com.the_pride_ias.R
 import com.the_pride_ias.databinding.ActivityPdfBinding
-import java.io.*
-import java.lang.Exception
-import java.net.HttpURLConnection
-import java.net.URL
 
 class PdfActivity : AppCompatActivity() {
     lateinit var binding: ActivityPdfBinding
+    private val scrollHandler = Handler(Looper.getMainLooper())
+    private var pendingScrollRunnable: Runnable? = null
+
+    private var isUserDraggingScrollbar = false
+
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,8 +48,8 @@ class PdfActivity : AppCompatActivity() {
         val url = intent.getStringExtra(IConstants.IntentStrings.payload)
 
         val pdfUrl = "https://docs.google.com/gview?embedded=true&url=$url"
-        val finalUrl=getDirectPdfUrl(pdfUrl)
-        Log.d("qdwqwd", "onCreate: ${getDirectPdfUrl(pdfUrl)}")
+        val finalUrl = getDirectPdfUrl(pdfUrl)
+        Log.d("qdwqwd", "onCreate: ${url}")
         binding.pdfView.initWithUrl(
             url = finalUrl,
             lifecycleCoroutineScope = lifecycleScope,
@@ -56,54 +62,138 @@ class PdfActivity : AppCompatActivity() {
                 Log.i("PDF Status", "Loading started")
             }
 
-            override fun onPdfLoadProgress(progress: Int, downloadedBytes: Long, totalBytes: Long?) {
-                Log.i("PDF Status", "Download progress: $progress%")
+            override fun onPdfLoadProgress(
+                progress: Int,
+                downloadedBytes: Long,
+                totalBytes: Long?) {
             }
 
             override fun onPdfLoadSuccess(absolutePath: String) {
-                Log.i("PDF Status", "Load successful: $absolutePath")
+                with(binding) {
+                    val totalPages = pdfView.totalPageCount
+                    customScrollbar.max =  totalPages - 1
+
+                    val lockDecorator = PdfPageLockDecorator(this@PdfActivity, 50)
+                    pdfView.recyclerView.addItemDecoration(lockDecorator)
+
+                    binding.customScrollbar.setScrollStateListener(object : VerticalSeekBar.ScrollStateListener {
+
+                        override fun onStartScrolling() {
+                            isUserDraggingScrollbar = true
+                            binding.pdfView.recyclerView.parent.requestDisallowInterceptTouchEvent(true)
+                        }
+
+                        override fun onStopScrolling() {
+                            isUserDraggingScrollbar = false
+                            binding.pdfView.recyclerView.parent.requestDisallowInterceptTouchEvent(false)
+                        }
+
+                        override fun onProgressChanged(progress: Int) {
+                            val layoutManager = binding.pdfView.recyclerView.layoutManager as LinearLayoutManager
+                            layoutManager.scrollToPositionWithOffset(progress, 0)
+                        }
+                    })
+
+                    customScrollbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                        override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                            if (isUserDraggingScrollbar) {
+                                pendingScrollRunnable?.let { scrollHandler.removeCallbacks(it) }
+
+                                pendingScrollRunnable = Runnable {
+                                    val layoutManager = binding.pdfView.recyclerView.layoutManager as LinearLayoutManager
+                                    layoutManager.scrollToPositionWithOffset(progress, 0)
+                                }
+
+                                scrollHandler.postDelayed(pendingScrollRunnable!!, 15)
+                            }
+                        }
+
+                        override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                            isUserDraggingScrollbar = true
+                            binding.pdfView.recyclerView.parent.requestDisallowInterceptTouchEvent(true)
+                        }
+
+                        override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                            isUserDraggingScrollbar = false
+                            binding.pdfView.recyclerView.parent.requestDisallowInterceptTouchEvent(false)
+
+                            val layoutManager = binding.pdfView.recyclerView.layoutManager as LinearLayoutManager
+                            layoutManager.scrollToPositionWithOffset(seekBar?.progress ?: 0, 0)
+                        }
+                    })
+
+                    pdfView.recyclerView.addOnItemTouchListener(object : androidx.recyclerview.widget.RecyclerView.SimpleOnItemTouchListener() {
+                        override fun onInterceptTouchEvent(rv: androidx.recyclerview.widget.RecyclerView, e: MotionEvent): Boolean {
+                            if (e.action == MotionEvent.ACTION_UP) {
+                                val child = rv.findChildViewUnder(e.x, e.y)
+                                if (child != null) {
+                                    val position = rv.getChildAdapterPosition(child)
+                                    if (position >= 50) {
+                                        val intent = Intent(this@PdfActivity, PlainActivity::class.java).apply {
+                                            putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.BuyPlan)
+                                            putExtra(IConstants.IntentStrings.payload, "Buy Plan")
+                                        }
+                                        startActivity(intent)
+                                        return true
+                                    }
+                                }
+                            }
+                            return false
+                        }
+                    })
+                }
+            }
+
+
+
+            override fun onPageChanged(currentPage: Int, totalPage: Int) {
+                if (!isUserDraggingScrollbar) {
+                    binding.customScrollbar.progress = currentPage
+                }
             }
 
             override fun onError(error: Throwable) {
-                Log.e("PDF Status", "Error loading PDF: ${error.message}")
+                Log.e("PDF Status", "Error: ${error.message}")
             }
 
-            override fun onPageChanged(currentPage: Int, totalPage: Int) {
-                Log.i("PDF Status", "Page changed: $currentPage / $totalPage")
-            }
-
-            override fun onPdfRenderStart() {
-                Log.i("PDF Status", "Render started")
-            }
+            override fun onPdfRenderStart() {}
 
             override fun onPdfRenderSuccess() {
                 Log.i("PDF Status", "Render successful")
-//                binding.pdfView.jumpToPage($number)  // Recommend to use `jumpToPage` inside `onPdfRenderSuccess`
             }
         }
+    }
 
-//        binding.webView.webViewClient = MyWebViewClient()
-//        binding.webView.settings.javaScriptEnabled = true
-//        binding.webView.loadUrl(pdfUrl)
-//
-//        binding.webView.webChromeClient = object : WebChromeClient() {
-//            override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
-//                Log.d("WebView", consoleMessage.message())
-//                return true
-//            }
-//        }
 
-        /* startActivity(
-              PdfViewerActivity.launchPdfFromUrl(
-                  this,
-                  "https://colormoon.in//sthree//uploads//4deafb675e91cc44ff6b822ab2101b4a.pdf",
-                  getString(R.string.title_material),
-                  "",
-                  enableDownload = false
-              )
-          )
-         finish()*/
 
+
+
+    fun redirectToBuyPlan() {
+        val intent = Intent(this, PlainActivity::class.java).apply {
+            putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.BuyPlan)
+            putExtra(IConstants.IntentStrings.payload, "Buy Plan")
+        }
+        startActivity(intent)
+    }
+
+
+
+    private fun setScrollbarThick(recyclerView: RecyclerView, thicknessDp: Int) {
+        try {
+            recyclerView.isVerticalScrollBarEnabled = true
+            val method = View::class.java.getDeclaredMethod("setScrollBarSize", Int::class.javaPrimitiveType)
+            method.isAccessible = true
+
+            val thicknessPx = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                thicknessDp.toFloat(),
+                resources.displayMetrics
+            ).toInt()
+
+            method.invoke(recyclerView, thicknessPx)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun getDirectPdfUrl(rawUrl: String): String {
@@ -139,6 +229,6 @@ class PdfActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
-
     }
+
 }

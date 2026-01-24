@@ -54,7 +54,7 @@ class ScoreBoardVM : ViewModel() {
                     if (apiResponse?.error_code == IConstants.Response.valid) {
                         val dataResponse = apiResponse.data as? SubmitedAnswerModel
                         if (dataResponse != null) {
-                            scoreData.value = dataResponse
+                            scoreData.value = dataResponse!!
                         }
                     } else {
                         apiResponse?.message?.let { activity?.setSnackBar(it) }

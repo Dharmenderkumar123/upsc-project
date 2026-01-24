@@ -46,10 +46,10 @@ class MyOrdersVM : ViewModel() {
                         val dataResponse =
                             (apiResponse.data as MutableList<*>).filterIsInstance<MyOrdersModel>()
                                 .toMutableList()
-                        ordersData.value = dataResponse
+                        ordersData.value = dataResponse!!
                     } else {
                         noData.value = true
-                        noDataMsg.value = apiResponse?.message
+                        noDataMsg.value = apiResponse?.message!!
                         //apiResponse?.message?.let { activity?.setSnackBar(it) }
                     }
                 }

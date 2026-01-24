@@ -20,6 +20,11 @@
     </style>
 
 
+    <style name="ThickScrollBar">
+        <item name="android:scrollbarSize">12dp</item>  <!-- increase as needed -->
+        <item name="android:fadeScrollbars">false</item>
+    </style>
+
     <style name="PrideTextStyle">
         <item name="android:fontFamily">@font/poppins_bold</item>
         <item name="android:textStyle">bold</item>

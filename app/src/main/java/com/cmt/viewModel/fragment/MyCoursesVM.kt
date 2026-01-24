@@ -56,7 +56,7 @@ class MyCoursesVM : ViewModel() {
                         val dataResponse =
                             (apiResponse.data as MutableList<*>).filterIsInstance<MyCourseModel>()
                                 .toMutableList()
-                        courseData.value = dataResponse
+                        courseData.value = dataResponse!!
                     } else {
                         noData.value = true
                         // apiResponse?.message?.let { activity?.setSnackBar(it) }

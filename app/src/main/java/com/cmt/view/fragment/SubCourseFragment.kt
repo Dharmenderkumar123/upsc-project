@@ -14,9 +14,7 @@ import com.the_pride_ias.databinding.FragmentSubCourseBinding
 class SubCourseFragment(var model: Courses, var type: String, var catType: String) : Fragment() {
     lateinit var binding: FragmentSubCourseBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSubCourseBinding.inflate(layoutInflater, container, false).apply {
             viewModel = ViewModelProvider(this@SubCourseFragment).get(SubcourseVM::class.java)
             viewModel?.binding = this

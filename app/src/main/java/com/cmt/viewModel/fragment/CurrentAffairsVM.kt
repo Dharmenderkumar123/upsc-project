@@ -34,10 +34,10 @@ class CurrentAffairsVM : ViewModel() {
                         val dataResponse =
                             (apiResponse.data as MutableList<*>).filterIsInstance<CurrentAffairsListModel>()
                                 .toMutableList()
-                        currentAffairsData.value = dataResponse
+                        currentAffairsData.value = dataResponse!!
                     } else {
                         noData.value = true
-                        errorMsg.value = apiResponse?.message
+                        errorMsg.value = apiResponse?.message!!
                     }
                 }
             }

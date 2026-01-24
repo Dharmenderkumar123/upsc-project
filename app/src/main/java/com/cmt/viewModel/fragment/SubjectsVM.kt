@@ -47,7 +47,7 @@ class SubjectsVM : ViewModel() {
                         val dataResponse =
                             (apiResponse.data as MutableList<*>).filterIsInstance<SubjectsModel>()
                                 .toMutableList()
-                        subjectsData.value = dataResponse
+                        subjectsData.value = dataResponse!!
                     } else {
                         binding.tvNoData.isVisible = true
                         apiResponse?.message?.let { activity?.setSnackBar(it) }

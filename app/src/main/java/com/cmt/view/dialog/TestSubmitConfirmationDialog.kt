@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,8 @@ class TestSubmitConfirmationDialog(val type : String ?=null) : DialogFragment() 
             viewModel = ViewModelProvider(this@TestSubmitConfirmationDialog).get(TestSubmitConfirmationVM::class.java)
             lifecycleOwner = this@TestSubmitConfirmationDialog
         }
+
+        Log.d("sdfjvsadf", "onCreateView: ")
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         if(type !=null){
             if(type ==IConstants.Defaults.logout){

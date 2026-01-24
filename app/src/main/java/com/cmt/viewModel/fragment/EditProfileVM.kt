@@ -46,7 +46,7 @@ class EditProfileVM : ViewModel() {
             .load(filePath)
             .into(binding.profileImg)
         imageFile = filePath
-        uploadImageData.value = imageData
+        uploadImageData.value = imageData!!
     }
 
     fun profileUpdate(view: View) {
@@ -62,7 +62,7 @@ class EditProfileVM : ViewModel() {
                 calendar.set(Calendar.MONTH, monthOfYear)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 val mobDate: String? = mainDFT?.format(calendar.time)
-                selectedDate.value = mobDate
+                selectedDate.value = mobDate!!
                 binding.dateOfBirth.text = selectedDate.value
             },
 
@@ -92,7 +92,7 @@ class EditProfileVM : ViewModel() {
                     val apiResponse = response as? APIResponse<*>
                     if (apiResponse?.error_code == IConstants.Response.valid) {
                         val dataResponse = apiResponse.data as? UserDetailsModel
-                        data.value = dataResponse
+                        data.value = dataResponse!!
                         Glide.with(activity)
                             .load(dataResponse?.profile_image)
                             .placeholder(R.drawable.pride_ias_logo)

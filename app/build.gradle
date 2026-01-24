@@ -17,17 +17,25 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.the_pride_ias"
+        applicationId "com.the_pride_ias.academy"
         minSdk 24
         targetSdk 36
-        versionCode 1
-        versionName "1.0"
+        versionCode 7
+        versionName "1.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = ["androidManifestFile": "$projectDir/src/main/AndroidManifest.xml".toString()]
+            }
+        }
+
+        externalNativeBuild {
+            cmake {
+                // Forces the linker to use 16 KB page alignment
+                arguments "-DANDROID_ALIGNED_PAGESIZE=16384"
+                cppFlags "-Wl,-z,common-page-size=16384 -Wl,-z,max-page-size=16384"
             }
         }
     }
@@ -72,7 +80,6 @@ dependencies {
     implementation 'androidx.activity:activity-ktx:1.12.2'
     implementation 'androidx.fragment:fragment-ktx:1.8.9'
 
-
     implementation 'com.github.dhaval2404:imagepicker:2.1'
 
     //FireBase
@@ -91,13 +98,13 @@ dependencies {
 //    implementation 'com.github.afreakyelf:Pdf-Viewer:v1.0.7'
 //    implementation 'com.github.afreakyelf:Pdf-Viewer:v2.3.7'
 
-    implementation 'com.github.mhiew:android-pdf-viewer:3.2.0-beta.3'
+//    implementation 'com.github.mhiew:android-pdf-viewer:3.2.0-beta.3'
+
+        // previously used
     implementation 'io.github.afreakyelf:Pdf-Viewer:2.3.7'
 
 /*    //Full ExoPlayer library
     implementation 'com.google.android.exoplayer:exoplayer:2.18.1'
-
     implementation 'com.ct7ct7ct7.androidvimeoplayer:library:1.2.2'*/
-
 
 }

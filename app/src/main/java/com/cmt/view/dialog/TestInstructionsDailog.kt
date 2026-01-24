@@ -63,10 +63,7 @@ class TestInstructionsDailog(
             if (binding.checkBox.isChecked == true) {
                 if (subjectId.isNullOrEmpty()) {
                     val intent = Intent(requireActivity(), PlainActivity::class.java)
-                    intent.putExtra(
-                        IConstants.IntentStrings.type,
-                        IConstants.FragmentType.TestScreen
-                    )
+                    intent.putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.TestScreen)
                     intent.putExtra(IConstants.IntentStrings.language, selectedlanguage)
                     intent.putExtra(IConstants.IntentStrings.testId, testId)
                     startActivity(intent)
@@ -74,10 +71,7 @@ class TestInstructionsDailog(
                     dismiss()
                 } else {
                     val intent = Intent(requireActivity(), PlainActivity::class.java)
-                    intent.putExtra(
-                        IConstants.IntentStrings.type,
-                        IConstants.FragmentType.PurchasedTestScreen
-                    )
+                    intent.putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.PurchasedTestScreen)
                     intent.putExtra(IConstants.IntentStrings.language, selectedlanguage)
                     intent.putExtra(IConstants.IntentStrings.testId, testId)
                     intent.putExtra(IConstants.IntentStrings.subjectId, subjectId)

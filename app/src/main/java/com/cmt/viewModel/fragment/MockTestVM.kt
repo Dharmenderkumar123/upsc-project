@@ -38,7 +38,7 @@ class MockTestVM : ViewModel() {
                     val apiResponse = response as? APIResponse<*>
                     if (apiResponse?.error_code == IConstants.Response.valid) {
                         val dataResponse = apiResponse.data as PackageDetailsModel
-                        packageData.value = dataResponse
+                        packageData.value = dataResponse!!
                     } else {
                         apiResponse?.message?.let { activity?.setSnackBar(it) }
                     }

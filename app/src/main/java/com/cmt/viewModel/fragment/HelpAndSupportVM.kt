@@ -38,7 +38,7 @@ class HelpAndSupportVM : ViewModel() {
                     val apiResponse = response as? APIResponse<*>
                     if (apiResponse?.error_code == IConstants.Response.valid) {
                         val dataResponse = apiResponse.data as? SupportModel
-                        data.value = dataResponse
+                        data.value = dataResponse!!
                         u = Uri.parse("tel:${data.value?.mobile_1}")
                         url = "https://api.whatsapp.com/send?phone=${data.value?.mobile_2}"
                     } else {

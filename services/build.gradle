@@ -33,8 +33,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-//            buildConfigField 'String', 'API', '"https://api.theprideias.com/api/"'
-            buildConfigField 'String', 'API', '"https://theprideias.com/webapi/"'
+            buildConfigField 'String', 'API', '"https://api.theprideias.com/api/"'
+//            buildConfigField 'String', 'API', '"https://theprideias.com/webapi/"'
 //            buildConfigField 'String', 'API', '"https://theprideias.com/webapi/"'
            // buildConfigField 'String', 'API', '"https://theprideias.com/"'
             //buildConfigField 'String', 'API', '"https://colormoon.in/the-pride-ias/api/"'

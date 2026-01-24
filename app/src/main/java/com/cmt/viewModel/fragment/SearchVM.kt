@@ -45,13 +45,13 @@ class SearchVM : ViewModel() {
                         val dataResponse =
                             (apiResponse.data as? MutableList<*>)?.filterIsInstance<AgricatCategoryModel>()
                                 ?.toMutableList()
-                        searchData.value = dataResponse
+                        searchData.value = dataResponse!!
                         binding.recycleView.isVisible = true
                         noData.value = false
                     } else {
                         binding.recycleView.isVisible = false
                         noData.value = true
-                        noDataMsg.value = apiResponse?.message
+                        noDataMsg.value = apiResponse?.message!!
                         apiResponse?.message?.let { activity?.setSnackBar(it) }
                     }
                 }

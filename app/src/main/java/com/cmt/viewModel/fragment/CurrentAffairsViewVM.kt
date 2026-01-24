@@ -32,10 +32,10 @@ class CurrentAffairsViewVM : ViewModel() {
                     val apiResponse = response as? APIResponse<*>
                     if (apiResponse?.error_code == IConstants.Response.valid) {
                         val data = apiResponse.data as? PageNation<*>
-                        currentAffairsList.value = data
+                        currentAffairsList.value = data!!
                     } else if (apiResponse?.error_code == IConstants.Response.invalid) {
                         noData.value = true
-                        errorMsg.value = apiResponse.message
+                        errorMsg.value = apiResponse.message!!
                     }
                 }
             }

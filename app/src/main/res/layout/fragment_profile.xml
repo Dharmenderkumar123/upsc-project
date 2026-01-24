@@ -72,7 +72,7 @@
                 android:paddingBottom="8dp"
                 android:text="@string/txt_edit_profile"
                 android:textAllCaps="false"
-                android:textColor="@color/colorWhite" />
+                android:textColor="@color/colorText" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

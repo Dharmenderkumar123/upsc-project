@@ -35,7 +35,7 @@ class ReviewVM : ViewModel() {
                         val dataResponse =
                             (apiResponse.data as? MutableList<*>)?.filterIsInstance<ReviewAnswersModel>()
                                 ?.toMutableList()
-                        reviewData.value = dataResponse
+                        reviewData.value = dataResponse!!
                     } else {
                         apiResponse?.message?.let { activity?.setSnackBar(it) }
                     }

@@ -44,7 +44,7 @@ class EBookVM : ViewModel() {
                         val dataResponse =
                             (apiResponse.data as MutableList<*>).filterIsInstance<Courses>()
                                 .toMutableList()
-                        ebookData.value = dataResponse
+                        ebookData.value = dataResponse!!
                     } else {
                         apiResponse?.message?.let {
                             if (context is MainActivity) {

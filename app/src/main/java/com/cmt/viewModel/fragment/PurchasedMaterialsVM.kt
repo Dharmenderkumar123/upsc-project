@@ -34,7 +34,7 @@ class PurchasedMaterialsVM : ViewModel() {
                         val dataResponse =
                             (apiResponse.data as MutableList<*>).filterIsInstance<MyMaterialModel>()
                                 .toMutableList()
-                        materialData.value = dataResponse
+                        materialData.value = dataResponse!!
                     } else {
                         apiResponse?.message?.let { activity?.setSnackBar(it) }
                     }

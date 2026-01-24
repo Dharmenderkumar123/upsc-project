@@ -8,6 +8,7 @@ import android.os.Looper
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -187,19 +188,38 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
         }
     }
+//
+//    fun activityLoader(isShow: Boolean) {
+//        if (isShow) {
+//            window?.setFlags(
+//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+//            )
+//            binding.mainContainer.animate()?.alpha(0.2f)
+//            binding.progressBar.visibility = View.VISIBLE
+//        } else {
+//            window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//            binding.mainContainer.animate()?.alpha(1f)
+//            binding.progressBar.visibility = View.GONE
+//        }
+//    }
 
     fun activityLoader(isShow: Boolean) {
         if (isShow) {
             window?.setFlags(
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-            )
-            binding.mainContainer.animate()?.alpha(0.2f)
-            binding.progressBar.visibility = View.VISIBLE
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//            binding.plainContainer.animate()?.alpha(0.2f)
+//            binding.progressBar.visibility = View.VISIBLE
+            val pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse)
+            binding.logoLoader.visibility = View.VISIBLE
+            binding.logoLoader.startAnimation(pulseAnimation)
         } else {
             window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            binding.mainContainer.animate()?.alpha(1f)
-            binding.progressBar.visibility = View.GONE
+//            binding.plainContainer.animate()?.alpha(1f)
+            binding.logoLoader.clearAnimation()
+            binding.logoLoader.visibility = View.GONE
+//            binding.progressBar.visibility = View.GONE
         }
     }
 }

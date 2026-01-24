@@ -52,7 +52,7 @@ class MyMaterialsVM : ViewModel() {
                     } else {
                         apiResponse?.message?.let { activity?.setSnackBar(it) }
                         noData.value = true
-                        noDataMsg.value = apiResponse?.message
+                        noDataMsg.value = apiResponse?.message!!
                     }
                 }
             }

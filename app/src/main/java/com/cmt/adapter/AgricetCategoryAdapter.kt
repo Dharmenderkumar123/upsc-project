@@ -35,11 +35,9 @@ class AgricetCategoryAdapter(
 
             binding.layout.setOnClickListener {
                 val intent = Intent(context, FullPlainActivity::class.java)
-                intent.putExtra(
-                    IConstants.IntentStrings.type,
-                    IConstants.FragmentType.CourseDescription)
+                intent.putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.CourseDescription)
                 intent.putExtra(IConstants.IntentStrings.model, datamodel)
-                intent.putExtra(IConstants.IntentStrings.image,modelSubjects?.image)
+                intent.putExtra(IConstants.IntentStrings.image,datamodel.image)
                 context.startActivity(intent)
                 (context as FragmentActivity).overridePendingTransition(R.anim.enter, R.anim.exit)
             }

@@ -3,6 +3,7 @@ package com.cmt.view.activity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 
@@ -201,14 +202,19 @@ class PlainActivity : BaseActivity() {
         if (isShow) {
             window?.setFlags(
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-            )
-            binding.plainContainer.animate()?.alpha(0.2f)
-            binding.progressBar.visibility = View.VISIBLE
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//            binding.plainContainer.animate()?.alpha(0.2f)
+//            binding.progressBar.visibility = View.VISIBLE
+            val pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse)
+            binding.logoLoader.visibility = View.VISIBLE
+            binding.logoLoader.startAnimation(pulseAnimation)
         } else {
             window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            binding.plainContainer.animate()?.alpha(1f)
-            binding.progressBar.visibility = View.GONE
+//            binding.plainContainer.animate()?.alpha(1f)
+
+            binding.logoLoader.clearAnimation()
+            binding.logoLoader.visibility = View.GONE
+//            binding.progressBar.visibility = View.GONE
         }
     }
 

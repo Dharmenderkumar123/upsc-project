@@ -50,7 +50,7 @@ class AgricetVM : ViewModel() {
                     val apiResponse = response as? APIResponse<*>
                     if (apiResponse?.error_code == IConstants.Response.valid) {
                         val dataResponse = apiResponse.data as SubjectsListModel
-                        subjectsData.value = dataResponse
+                        subjectsData.value = dataResponse!!
                         if (dataResponse.paid_status.equals("yes")) {
                             binding.layoutPrices.isVisible = false
                         } else {

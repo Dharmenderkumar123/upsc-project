@@ -49,7 +49,7 @@ class TestScreenVM : ViewModel() {
                         val dataResponse =
                             (apiResponse.data as? MutableList<*>)?.filterIsInstance<TestOptionsModel>()
                                 ?.toMutableList()
-                        testData.value = dataResponse
+                        testData.value = dataResponse!!
                     } else {
                         apiResponse?.message?.let { activity?.setSnackBar(it) }
                     }

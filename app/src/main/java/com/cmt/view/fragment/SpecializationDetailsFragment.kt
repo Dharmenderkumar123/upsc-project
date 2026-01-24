@@ -1,6 +1,7 @@
 package com.cmt.view.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,7 @@ class SpecializationDetailsFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel?.setTabData(view.context)
-
+        Log.d("sahgdfa", "onViewCreated: ${image}")
         Glide.with(requireActivity())
             .load(image)
             .placeholder(R.drawable.group_17129)

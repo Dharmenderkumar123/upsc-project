@@ -18,6 +18,18 @@
         android:orientation="vertical"
         android:fitsSystemWindows="true"
         tools:context=".view.activity.PdfActivity">
+        <LinearLayout
+            android:id="@+id/lockLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:elevation="10dp"
+            android:gravity="center">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/lock_ic"/>
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/toolBar"
@@ -72,13 +84,33 @@
             android:layout_below="@id/toolBar"
             android:visibility="gone" />
 
+
+
         <com.rajat.pdfviewer.PdfRendererView
             android:id="@+id/pdfView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/toolBar"
+            android:scrollbarSize="10dp"
+            android:fastScrollEnabled="true"
+            android:fastScrollStyle="@style/ThickScrollBar"
+            android:scrollbars="vertical"
+            android:scrollbarThumbVertical="@android:color/darker_gray"
             app:pdfView_divider="@drawable/pdf_viewer_divider"
             app:pdfView_showDivider="false" />
+
+
+        <com.cmt.helper.VerticalSeekBar
+            android:id="@+id/customScrollbar"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolBar"
+            android:layout_alignParentEnd="true"
+            android:thumbOffset="0dp"
+            android:splitTrack="false"
+            android:progress="0"
+            android:max="100" />
+
 
         <ProgressBar
             android:id="@+id/pbr"
