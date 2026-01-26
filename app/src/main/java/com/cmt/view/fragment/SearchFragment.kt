@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.cmt.adapter.AgricetCategoryAdapter
-import com.cmt.helper.hideKeyboard
 import com.cmt.viewModel.fragment.SearchVM
 import com.the_pride_ias.R
 import com.the_pride_ias.databinding.FragmentSearchBinding
@@ -65,7 +64,12 @@ class SearchFragment : Fragment() {
             if (!it.isNullOrEmpty()) {
                 binding.recycleView.apply {
                     adapter = it.let { it1 ->
-                        AgricetCategoryAdapter(binding.root.context, it)
+                        AgricetCategoryAdapter(
+                            binding.root.context,
+                            it,
+                            isPurchased = false,
+                            subCategoryId = "1"
+                        )
                     }
                 }
             } else {

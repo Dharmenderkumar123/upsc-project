@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="8dp">
+        <LinearLayout
+            android:id="@+id/llbg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTheme"
+            android:orientation="vertical"
+            android:padding="12dp">
+            <TextView android:id="@+id/tvPackageName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Full course pack" android:textColor="#B8860B" android:textStyle="bold"/>
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EEEEEE" android:layout_marginVertical="8dp"/>
+            <TextView android:id="@+id/tvDesc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Student weak in one area working professionals" android:textSize="12sp"/>
+            <TextView  android:id="@+id/tvRupess" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="₹ 15,999" android:textSize="20sp" android:textStyle="bold" android:layout_marginTop="8dp" android:textColor="#800020"/>
+            <TextView android:id="@+id/tvTimePeriod" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="6 Months Access" android:textSize="10sp"/>
+            <Button android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="wrap_content" android:text="Buy Now" android:backgroundTint="#B8860B" android:layout_marginTop="8dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

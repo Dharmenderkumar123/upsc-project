@@ -46,6 +46,9 @@ object IServiceConstants {
         const val reset_password = "reset_password"
         const val notifications = "notifications"
         const val auto_login = "auto_login"
+        const val getPackages = "/api/courses/getPackages"
+        const val paymentDetails = "/api/courses/getPaymentDetails"
+
 
     }
 

@@ -5,13 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.cmt.services.model.Courses
 import com.cmt.viewModel.fragment.SubcourseVM
 import com.the_pride_ias.databinding.FragmentSubCourseBinding
 
-class SubCourseFragment(var model: Courses, var type: String, var catType: String) : Fragment() {
+class SubCourseFragment(
+    var model: Courses,
+    var type: String,
+    var catType: String,
+    var subCategoryId: String?,
+    var type1: Int
+) : Fragment() {
     lateinit var binding: FragmentSubCourseBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -19,23 +24,21 @@ class SubCourseFragment(var model: Courses, var type: String, var catType: Strin
             viewModel = ViewModelProvider(this@SubCourseFragment).get(SubcourseVM::class.java)
             viewModel?.binding = this
             lifecycleOwner = this@SubCourseFragment
-
         }
         binding.close.setOnClickListener {
             requireActivity().onBackPressed()
         }
         binding.title.setText(model.category_name)
-
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel?.setdata(view, model, type)
+        binding.viewModel?.setdata(view, model, type,subCategoryId,type1)
 
-        var noString = "$catType not available"
+        val noString = "$catType not available"
         binding.tvNoCourse.text = noString
+        binding.layoutPrices.visibility =if(!model.is_purchased) View.VISIBLE  else View.INVISIBLE
 
     }
 }

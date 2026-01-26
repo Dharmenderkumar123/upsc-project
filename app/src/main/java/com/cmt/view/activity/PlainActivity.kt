@@ -33,8 +33,7 @@ class PlainActivity : BaseActivity() {
             when (intent.getStringExtra(IConstants.IntentStrings.type)) {
                 IConstants.FragmentType.AgricetCategory -> {
                     binding.tvTitle.visibility = View.VISIBLE
-                    val model =
-                        intent.getSerializableExtra(IConstants.IntentStrings.payload) as SubCourseModel
+                    val model = intent.getSerializableExtra(IConstants.IntentStrings.payload) as SubCourseModel
                     binding.tvTitle.text = model.sub_category_name
                     loadFragment(AgricetCategoryFragment(model))
                 }
@@ -44,7 +43,9 @@ class PlainActivity : BaseActivity() {
                 }
                 IConstants.FragmentType.BuyPlan -> {
                     binding.tvTitle.text = intent.getStringExtra(IConstants.IntentStrings.payload)
-                    loadFragment(BuyPlanFragment())
+                    val id = intent.getStringExtra(IConstants.IntentStrings.id)
+                    val cat_type = intent.getStringExtra(IConstants.IntentStrings.cat_type)
+                    loadFragment(BuyPlanFragment(id,(cat_type ?: "0").toInt()))
                 }
                 IConstants.ProfileType.My_Material -> {
                     binding.tvTitle.text = intent.getStringExtra(IConstants.IntentStrings.payload)

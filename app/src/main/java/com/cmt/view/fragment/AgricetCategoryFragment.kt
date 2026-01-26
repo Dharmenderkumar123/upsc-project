@@ -66,7 +66,7 @@ class AgricetCategoryFragment(var model: SubCourseModel) : Fragment() {
                         adapter = it.subjects?.let { it1 ->
                             it.image?.let { it2 ->
                                 it.description?.let { it3 ->
-                                    AgricetCategoryAdapter(binding.root.context, it1, it2, it3, it)
+                                    AgricetCategoryAdapter(binding.root.context, it1, it2, it3, it,model.is_purchased,model.sub_category_id)
                                 }
                             }
                         }
@@ -78,6 +78,7 @@ class AgricetCategoryFragment(var model: SubCourseModel) : Fragment() {
                 binding.tvNoSubj.setVisibility(View.VISIBLE)
             }
         }
+        binding.layoutPrices.visibility= if(!model.is_purchased) View.VISIBLE else View.INVISIBLE
     }
 
     override fun onResume() {

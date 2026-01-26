@@ -10,12 +10,10 @@ import androidx.fragment.app.Fragment
 import com.cmt.helper.IConstants
 import com.cmt.services.model.AgricatCategoryModel
 import com.cmt.services.model.Courses
-import com.cmt.services.model.SubjectsModel
 import com.cmt.services.model.SubmitedAnswerModel
 import com.cmt.view.fragment.*
 import com.the_pride_ias.R
 import com.the_pride_ias.databinding.ActivityFullPlainBinding
-import java.util.*
 
 class FullPlainActivity : AppCompatActivity() {
     lateinit var binding: ActivityFullPlainBinding
@@ -41,11 +39,10 @@ class FullPlainActivity : AppCompatActivity() {
                     loadFragment(OtpFragment(userId))
                 }
                 IConstants.FragmentType.SubCourse -> {
-                    val model =
-                        intent.getSerializableExtra(IConstants.IntentStrings.payload) as Courses
+                    val model = intent.getSerializableExtra(IConstants.IntentStrings.payload) as Courses
                     val type: String = intent.getStringExtra(IConstants.IntentStrings.courseType)!!
                     val catType: String = intent.getStringExtra(IConstants.IntentStrings.catType)!!
-                    loadFragment(SubCourseFragment(model, type,catType))
+                    loadFragment(SubCourseFragment(model, type,catType,model.category_id, 0))
                 }
                 IConstants.FragmentType.CourseDescription -> {
                     val subjModel =

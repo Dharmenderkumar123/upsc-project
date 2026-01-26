@@ -120,5 +120,13 @@
             android:visibility="gone" />
 
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/logoLoader"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/pride_ias_logo"
+            android:visibility="gone" />
+
     </RelativeLayout>
 </layout>

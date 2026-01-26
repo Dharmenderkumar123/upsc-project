@@ -6,22 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 
 import com.cmt.helper.IConstants
 import com.cmt.services.model.AgricatCategoryModel
 import com.cmt.services.model.SubjectsListModel
 import com.cmt.view.activity.FullPlainActivity
+import com.cmt.view.activity.PlainActivity
 import com.the_pride_ias.R
 import com.the_pride_ias.databinding.ItemsAgricetBinding
 
 class AgricetCategoryAdapter(
     val context: Context,
     val dataset: MutableList<AgricatCategoryModel>,
-    var image: String?=null,
-    var description: String?=null,
-    val modelSubjects: SubjectsListModel?=null
+    var image: String? = null,
+    var description: String? = null,
+    val modelSubjects: SubjectsListModel? = null,
+    val isPurchased: Boolean,
+    val subCategoryId: String?
 ) :
     RecyclerView.Adapter<AgricetCategoryAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemsAgricetBinding) :
@@ -34,12 +36,22 @@ class AgricetCategoryAdapter(
 
 
             binding.layout.setOnClickListener {
-                val intent = Intent(context, FullPlainActivity::class.java)
-                intent.putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.CourseDescription)
-                intent.putExtra(IConstants.IntentStrings.model, datamodel)
-                intent.putExtra(IConstants.IntentStrings.image,datamodel.image)
+                if(!isPurchased){
+                 val intent = Intent(context, PlainActivity::class.java)
+                intent.putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.BuyPlan)
+                intent.putExtra(IConstants.IntentStrings.payload, "Buy Plan")
+                intent.putExtra(IConstants.IntentStrings.id, subCategoryId)
+                intent.putExtra(IConstants.IntentStrings.cat_type, "1")
                 context.startActivity(intent)
                 (context as FragmentActivity).overridePendingTransition(R.anim.enter, R.anim.exit)
+                } else{
+                    val intent = Intent(context, FullPlainActivity::class.java)
+                    intent.putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.CourseDescription)
+                    intent.putExtra(IConstants.IntentStrings.model, datamodel)
+                    intent.putExtra(IConstants.IntentStrings.image,datamodel.image)
+                    context.startActivity(intent)
+                    (context as FragmentActivity).overridePendingTransition(R.anim.enter, R.anim.exit)
+                }
             }
         }
 

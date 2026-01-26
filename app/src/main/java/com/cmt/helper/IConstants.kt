@@ -4,8 +4,10 @@ interface IConstants {
 
     object IntentStrings {
         const val type = "type"
+        const val cat_type = "cat_type"
         const val dialog = "dialog"
         const val payload = "payload"
+        const val id = "id"
         const val title = "title"
         const val userId = "userId"
         const val courseType = "courseType"

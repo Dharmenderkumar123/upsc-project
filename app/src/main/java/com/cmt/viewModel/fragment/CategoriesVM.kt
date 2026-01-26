@@ -39,14 +39,8 @@ class CategoriesVM : ViewModel() {
                 } else {
                     val apiResponse = response as? APIResponse<*>
                     if (apiResponse?.error_code == IConstants.Response.valid) {
-                        val dataResponse =
-                            (apiResponse.data as MutableList<*>).filterIsInstance<Courses>()
-                                .toMutableList()
-                        binding.recycleView.apply {
-                            adapter = CategoryListAdapter(binding.root.context, dataResponse)
-
-                        }
-
+                        val dataResponse = (apiResponse.data as MutableList<*>).filterIsInstance<Courses>().toMutableList()
+                        binding.recycleView.apply { adapter = CategoryListAdapter(binding.root.context, dataResponse) }
                     } else {
                         apiResponse?.message?.let {
                             if (view.context is MainActivity) {

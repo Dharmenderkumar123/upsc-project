@@ -10,6 +10,8 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
+import android.view.WindowManager
+import android.view.animation.AnimationUtils
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.SeekBar
@@ -34,6 +36,20 @@ class PdfActivity : AppCompatActivity() {
 
     private var isUserDraggingScrollbar = false
 
+    fun activityLoader(isShow: Boolean) {
+        if (isShow) {
+            window?.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            val pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse)
+            binding.logoLoader.visibility = View.VISIBLE
+            binding.logoLoader.startAnimation(pulseAnimation)
+        } else {
+            window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            binding.logoLoader.clearAnimation()
+            binding.logoLoader.visibility = View.GONE
+        }
+    }
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +76,7 @@ class PdfActivity : AppCompatActivity() {
         binding.pdfView.statusListener = object : PdfRendererView.StatusCallBack {
             override fun onPdfLoadStart() {
                 Log.i("PDF Status", "Loading started")
+                activityLoader(true)
             }
 
             override fun onPdfLoadProgress(
@@ -69,6 +86,7 @@ class PdfActivity : AppCompatActivity() {
             }
 
             override fun onPdfLoadSuccess(absolutePath: String) {
+                activityLoader(false)
                 with(binding) {
                     val totalPages = pdfView.totalPageCount
                     customScrollbar.max =  totalPages - 1
@@ -154,11 +172,14 @@ class PdfActivity : AppCompatActivity() {
 
             override fun onError(error: Throwable) {
                 Log.e("PDF Status", "Error: ${error.message}")
+                activityLoader(false)
             }
 
             override fun onPdfRenderStart() {}
 
             override fun onPdfRenderSuccess() {
+                activityLoader(false)
+
                 Log.i("PDF Status", "Render successful")
             }
         }

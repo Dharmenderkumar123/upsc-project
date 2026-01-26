@@ -7,4 +7,5 @@ class SubCourseModel : Serializable {
     var sub_category_id: String? = null
     var sub_category_name: String? = null
     var image: String? = null
+    var is_purchased: Boolean=false
 }

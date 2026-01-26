@@ -31,8 +31,7 @@ class EBookFragment : Fragment() {
         binding.viewModel?.ebookData?.observe(requireActivity()) {
             it?.let {
                 binding.recycleView.apply {
-                    adapter =
-                        EbookMenuListAdapter(binding.root.context, it)
+                    adapter = EbookMenuListAdapter(binding.root.context, it)
                 }
 
             }
