@@ -2,6 +2,7 @@ package com.cmt.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -23,12 +24,12 @@ class EbooksAdapter(val context: Context, val dataset: MutableList<EbookDataMode
                 val activity = context as? MainActivity
                 val intent = Intent(activity, PdfActivity::class.java)
                 intent.putExtra(IConstants.IntentStrings.payload, datamodel.pdf)
+                intent.putExtra(IConstants.IntentStrings.sub_cat_id, datamodel.sub_cat_id.toString())
+                intent.putExtra(IConstants.IntentStrings.cat_type, "1")
                 activity?.startActivity(intent)
                 activity?.overridePendingTransition(R.anim.enter, R.anim.exit)
             }
         }
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -20,7 +20,7 @@ import com.cmt.viewModel.activity.MainActivityViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.the_pride_ias.R
 import com.the_pride_ias.databinding.ActivityMainBinding
-
+import kotlin.system.exitProcess
 
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -44,6 +44,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         }
         setContentView(binding.root)
+        if (android.os.Debug.isDebuggerConnected() || android.os.Debug.waitingForDebugger()) {
+            exitProcess(0)
+        }
 
         binding.bottomNav.setOnNavigationItemSelectedListener { item: MenuItem ->
             onNavigationItemSelected(

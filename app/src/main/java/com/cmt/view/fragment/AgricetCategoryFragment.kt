@@ -62,11 +62,12 @@ class AgricetCategoryFragment(var model: SubCourseModel) : Fragment() {
         binding.viewModel?.subjectsData?.observe(requireActivity()) {
             if (!it?.subjects.isNullOrEmpty()) {
                 it?.let {
+                    binding.layoutPrices.visibility= if(it.paid_status=="no") View.VISIBLE else View.INVISIBLE
                     binding.recycleView.apply {
                         adapter = it.subjects?.let { it1 ->
                             it.image?.let { it2 ->
                                 it.description?.let { it3 ->
-                                    AgricetCategoryAdapter(binding.root.context, it1, it2, it3, it,model.is_purchased,model.sub_category_id)
+                                    AgricetCategoryAdapter(binding.root.context, it1, it2, it3, it,model.is_purchased,model.sub_category_id,it.paid_status)
                                 }
                             }
                         }
@@ -78,7 +79,7 @@ class AgricetCategoryFragment(var model: SubCourseModel) : Fragment() {
                 binding.tvNoSubj.setVisibility(View.VISIBLE)
             }
         }
-        binding.layoutPrices.visibility= if(!model.is_purchased) View.VISIBLE else View.INVISIBLE
+
     }
 
     override fun onResume() {

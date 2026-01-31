@@ -7,6 +7,7 @@ interface IConstants {
         const val cat_type = "cat_type"
         const val dialog = "dialog"
         const val payload = "payload"
+        const val sub_cat_id = "sub_cat_id"
         const val id = "id"
         const val title = "title"
         const val userId = "userId"
@@ -100,10 +101,13 @@ interface IConstants {
         const val language = "language"
         const val current_version = "current_version"
         const val tracking_id = "tracking_id"
-        const val package_id = "package_id"
+        var package_id = "package_id"
         const val amount = "amount"
         const val order_id = "order_id"
+        const val Type = "type"
+        const val item_id = "item_id"
         const val status = "status"
+        const val Status = "status"
         const val course_id = "course_id"
 
     }

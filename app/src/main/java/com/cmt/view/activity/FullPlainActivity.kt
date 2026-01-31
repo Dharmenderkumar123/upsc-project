@@ -14,6 +14,7 @@ import com.cmt.services.model.SubmitedAnswerModel
 import com.cmt.view.fragment.*
 import com.the_pride_ias.R
 import com.the_pride_ias.databinding.ActivityFullPlainBinding
+import kotlin.system.exitProcess
 
 class FullPlainActivity : AppCompatActivity() {
     lateinit var binding: ActivityFullPlainBinding
@@ -21,6 +22,11 @@ class FullPlainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFullPlainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (android.os.Debug.isDebuggerConnected() || android.os.Debug.waitingForDebugger()) {
+            exitProcess(0)
+        }
+
 
         if (intent.hasExtra(IConstants.IntentStrings.type)) {
             when (intent.getStringExtra(IConstants.IntentStrings.type)) {

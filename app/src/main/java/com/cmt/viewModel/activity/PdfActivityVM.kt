@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class PdfActivityVM : ViewModel() {
+
     var activityTitle: MutableLiveData<String> = MutableLiveData()
 
     fun backEvent(view: View) {

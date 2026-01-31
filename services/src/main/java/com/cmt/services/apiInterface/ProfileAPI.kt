@@ -4,6 +4,7 @@ import com.cmt.services.helper.IServiceConstants
 import com.cmt.services.model.APIResponse
 import com.cmt.services.model.RegisterResponseModel
 import com.cmt.services.model.UserDetailsModel
+import com.cmt.services.model.UserRank
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -13,6 +14,10 @@ interface ProfileAPI {
     @FormUrlEncoded
     @POST(IServiceConstants.API.profile)
     fun profile(@FieldMap userParams: HashMap<String, String>): Call<APIResponse<UserDetailsModel>>
+
+    @FormUrlEncoded
+    @POST(IServiceConstants.API.test_result)
+    fun getTestResult(@FieldMap userParams: HashMap<String, String>): Call<APIResponse<MutableList<UserRank>>>
 
     @Multipart
     @POST(IServiceConstants.API.update_profile)

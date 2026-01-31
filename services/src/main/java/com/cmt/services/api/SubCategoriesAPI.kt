@@ -12,8 +12,8 @@ import retrofit2.Response
 
 class SubCategoriesAPI {
     fun subCategories(params: HashMap<String, String>, retrofitCallBack: RetrofitCallBack) {
-        val client: SubCategoriesCourse =
-            APIClient().getInstance().create(SubCategoriesCourse::class.java)
+        val client: SubCategoriesCourse = APIClient().getInstance().create(SubCategoriesCourse::class.java)
+
         val call: Call<APIResponse<MutableList<SubCourseModel>>> = client.subCategories(params)
         call.enqueue(object : Callback<APIResponse<MutableList<SubCourseModel>>> {
             override fun onResponse(

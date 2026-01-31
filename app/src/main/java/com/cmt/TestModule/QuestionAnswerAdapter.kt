@@ -15,7 +15,7 @@ import com.the_pride_ias.databinding.LayoutMockAnswerListBinding
 
 class QuestionAnswerAdapter(
     private val context: Context,
-    private val dataSet: MutableList<TestOptionsModel>
+    private val dataSet: MutableList<TestOptionsModel>?
 ) :
     RecyclerView.Adapter<QuestionAnswerAdapter.ViewHolder>() {
     inner class ViewHolder constructor(val binder: LayoutMockAnswerListBinding) :
@@ -34,27 +34,29 @@ class QuestionAnswerAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val model = dataSet[position]
+        val model = dataSet?.get(position)
         holder.setIsRecyclable(false)
 
-        if (model.selectedOption.isNotEmpty()) {
+        if (model?.selectedOption?.isNotEmpty() == true) {
             checkSelectedAnswer(holder.binder, model.selectedOption, model)
         }
 
         holder.binder.tvQuestionCount.text = "Question ${position + 1}"
         holder.binder.tvQuestion.text =
-            HtmlCompat.fromHtml(model.question.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT)
+            HtmlCompat.fromHtml(model?.question.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT)
 
         holder.binder.option1.text =
-            HtmlCompat.fromHtml(model.option1.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT)
+            HtmlCompat.fromHtml(model?.option1.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT)
         holder.binder.option2.text =
-            HtmlCompat.fromHtml(model.option2.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT)
+            HtmlCompat.fromHtml(model?.option2.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT)
         holder.binder.option3.text =
-            HtmlCompat.fromHtml(model.option3.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT)
+            HtmlCompat.fromHtml(model?.option3.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT)
         holder.binder.option4.text =
-            HtmlCompat.fromHtml(model.option4.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT)
+            HtmlCompat.fromHtml(model?.option4.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT)
+        holder.binder.tvSolution.text=model?.solution
 
-        if (dataSet.size == (position + 1)) {
+
+        if (dataSet?.size == (position + 1)) {
             holder.binder.nxt.text = context.getString(R.string.btn_submit)
         } else {
             holder.binder.btnNxt.text = context.getString(R.string.txt_save_next)
@@ -64,8 +66,8 @@ class QuestionAnswerAdapter(
          * Next and Previous question action events
          */
         holder.binder.btnNxt.setOnClickListener {
-            mCallBack?.selectionAnswer(position, dataSet)
-            if (dataSet.size.equals(1)) {
+            mCallBack?.selectionAnswer(position, dataSet!!)
+            if (dataSet?.size?.equals(1) == true) {
                 mCallBack?.submitAnswers()
             } else {
                 if (holder.binder.btnNxt.text != context.getString(R.string.btn_submit)) {
@@ -77,7 +79,7 @@ class QuestionAnswerAdapter(
         }
 
         holder.binder.nxt.setOnClickListener {
-            mCallBack?.selectionAnswer(position, dataSet)
+            mCallBack?.selectionAnswer(position, dataSet!!)
             if (holder.binder.nxt.text == context.getString(R.string.txt_save_next)) {
                 mCallBack?.nextQuestions()
             } else {
@@ -86,7 +88,7 @@ class QuestionAnswerAdapter(
         }
 
         holder.binder.previous.setOnClickListener {
-            mCallBack?.selectionAnswer(position, dataSet)
+            mCallBack?.selectionAnswer(position, dataSet!!)
             mCallBack?.previousQuestion()
         }
 
@@ -101,38 +103,44 @@ class QuestionAnswerAdapter(
             }
         }
 
-
         /**
          * Options click events
          */
+
         holder.binder.option1.setOnClickListener {
-            model.isSelected = true
-            model.selectedOption = "option1"
-            changeSelectedView(holder.binder, "option1", model)
+            model?.isSelected = true
+            model?.selectedOption = "option1"
+            model?.selectedAns="1"
+            changeSelectedView(holder.binder, "option1", model!!)
+            holder.binder.tvSolution.visibility= View.VISIBLE
         }
         holder.binder.option2.setOnClickListener {
-            model.isSelected = true
-            model.selectedOption = "option2"
-            changeSelectedView(holder.binder, "option2", model)
+            model?.isSelected = true
+            model?.selectedOption = "option2"
+            model?.selectedAns="2"
+            changeSelectedView(holder.binder, "option2", model!!)
+            holder.binder.tvSolution.visibility= View.VISIBLE
+
         }
         holder.binder.option3.setOnClickListener {
-            model.isSelected = true
-            model.selectedOption = "option3"
-            changeSelectedView(holder.binder, "option3", model)
+            model?.isSelected = true
+            model?.selectedOption = "option3"
+            model?.selectedAns="3"
+            changeSelectedView(holder.binder, "option3", model!!)
+            holder.binder.tvSolution.visibility= View.VISIBLE
+
         }
         holder.binder.option4.setOnClickListener {
-            model.isSelected = true
-            model.selectedOption = "option4"
-            changeSelectedView(holder.binder, "option4", model)
+            model?.isSelected = true
+            model?.selectedOption = "option4"
+            model?.selectedAns="4"
+            changeSelectedView(holder.binder, "option4", model!!)
+            holder.binder.tvSolution.visibility= View.VISIBLE
         }
 
     }
 
-    private fun checkSelectedAnswer(
-        binder: LayoutMockAnswerListBinding,
-        answer: String?,
-        model: TestOptionsModel
-    ) {
+    private fun checkSelectedAnswer(binder: LayoutMockAnswerListBinding, answer: String?, model: TestOptionsModel) {
         when (answer) {
             "option1" -> {
                 if (model.answer=="1"){
@@ -206,28 +214,16 @@ class QuestionAnswerAdapter(
     private fun checkCorrectAnswer(binder: LayoutMockAnswerListBinding, answer: String?) {
         when (answer) {
             "1" -> {
-                binder.option1Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_selected_option
-                )
+                binder.option1Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_selected_option)
             }
             "2" -> {
-                binder.option2Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_selected_option
-                )
+                binder.option2Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_selected_option)
             }
             "3" -> {
-                binder.option3Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_selected_option
-                )
+                binder.option3Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_selected_option)
             }
             "4" -> {
-                binder.option4Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_selected_option
-                )
+                binder.option4Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_selected_option)
             }
         }
 
@@ -239,96 +235,43 @@ class QuestionAnswerAdapter(
         fun previousQuestion()
         fun submitAnswers()
     }
-
     var mCallBack: OnSelectedAnswerListener? = null
-
     /**
      * Selection option highlighter
      */
-    private fun changeSelectedView(
-        binder: LayoutMockAnswerListBinding,
-        answerType: String,
-        model: TestOptionsModel
-    ) {
+    private fun changeSelectedView(binder: LayoutMockAnswerListBinding, answerType: String, model: TestOptionsModel) {
         when (answerType) {
             "option1" -> {
                 binder.option1Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_selected_wrong)
-                binder.option2Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_edit_10dp
-                )
-                binder.option3Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_edit_10dp
-                )
-                binder.option4Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_edit_10dp
-                )
+                binder.option2Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_edit_10dp)
+                binder.option3Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_edit_10dp)
+                binder.option4Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_edit_10dp)
             }
             "option2" -> {
-                binder.option2Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_selected_wrong
-                )
-                binder.option1Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_edit_10dp
-                )
-                binder.option3Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_edit_10dp
-                )
-                binder.option4Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_edit_10dp
-                )
+                binder.option2Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_selected_wrong)
+                binder.option1Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_edit_10dp)
+                binder.option3Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_edit_10dp)
+                binder.option4Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_edit_10dp)
             }
             "option3" -> {
-                binder.option3Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_selected_wrong
-                )
-                binder.option1Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_edit_10dp
-                )
-                binder.option2Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_edit_10dp
-                )
-                binder.option4Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_edit_10dp
-                )
+                binder.option3Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_selected_wrong)
+                binder.option1Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_edit_10dp)
+                binder.option2Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_edit_10dp)
+                binder.option4Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_edit_10dp)
             }
             "option4" -> {
-                binder.option4Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_selected_wrong
-                )
-                binder.option1Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_edit_10dp
-                )
-                binder.option2Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_edit_10dp
-                )
-                binder.option3Layout.background = ContextCompat.getDrawable(
-                    context,
-                    R.drawable.bg_edit_10dp
-                )
-
+                binder.option4Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_selected_wrong)
+                binder.option1Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_edit_10dp)
+                binder.option2Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_edit_10dp)
+                binder.option3Layout.background = ContextCompat.getDrawable(context, R.drawable.bg_edit_10dp)
             }
-
         }
         checkCorrectAnswer(binder, model.answer)
     }
 
 
     override fun getItemCount(): Int {
-        return dataSet.size
+        return dataSet?.size ?: 0
     }
 
 

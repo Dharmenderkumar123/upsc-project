@@ -12,8 +12,11 @@ import retrofit2.Response
 
 class BuyPlanApi {
     fun getPlans(hm: HashMap<String, String>, retrofitCallBack: RetrofitCallBack) {
+
         val client: BuyPlanInterface = APIClient().getInstance().create(BuyPlanInterface::class.java)
+
         val call: Call<APIResponse<MutableList<PackagesModel>>> = client.getPackages(hm)
+
         call.enqueue(object : Callback<APIResponse<MutableList<PackagesModel>>> {
             override fun onResponse(call: Call<APIResponse<MutableList<PackagesModel>>>, response: Response<APIResponse<MutableList<PackagesModel>>>) {
                 retrofitCallBack.responseListener(response.body())
@@ -27,8 +30,11 @@ class BuyPlanApi {
     }
 
     fun getPayementInfo(retrofitCallBack: RetrofitCallBack) {
+
         val client: BuyPlanInterface = APIClient().getInstance().create(BuyPlanInterface::class.java)
+
         val call: Call<APIResponse<PaymentModel>> = client.getPaymentDetails()
+
         call.enqueue(object : Callback<APIResponse<PaymentModel>> {
             override fun onResponse(call: Call<APIResponse<PaymentModel>>, response: Response<APIResponse<PaymentModel>>) {
                 retrofitCallBack.responseListener(response.body())

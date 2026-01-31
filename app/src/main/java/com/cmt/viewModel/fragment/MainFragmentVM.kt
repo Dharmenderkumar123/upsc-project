@@ -95,7 +95,7 @@ class MainFragmentVM : ViewModel() {
                         adapter = AdvBannerAdapter(context = context, dataResponse)
 
                         if (bannerHandler == null) {
-                            autoScroll(3000)
+                            autoScroll(10000)
                         }
                         isUserInputEnabled = true
 

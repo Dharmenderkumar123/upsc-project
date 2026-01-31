@@ -15,7 +15,7 @@ import com.the_pride_ias.databinding.ItemSubcourseBinding
 
 class CoursesSubCategoryAdapter(
     val context: Context,
-    val dataset: MutableList<SubCourseModel>,
+    val dataset: MutableList<SubCourseModel>?,
     var type: String,
     val model: Courses,
     val subCategoryId: String?,
@@ -24,7 +24,7 @@ class CoursesSubCategoryAdapter(
     RecyclerView.Adapter<CoursesSubCategoryAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemSubcourseBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun binder(datamodel: SubCourseModel) {
+        fun binder(datamodel: SubCourseModel?) {
             binding.model = datamodel
             binding.root.setOnClickListener {
 //                if(!model.is_purchased){
@@ -81,10 +81,10 @@ class CoursesSubCategoryAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binder(dataset[position])
+        holder.binder(dataset?.get(position))
     }
 
     override fun getItemCount(): Int {
-        return dataset.size
+        return dataset?.size ?: 0
     }
 }

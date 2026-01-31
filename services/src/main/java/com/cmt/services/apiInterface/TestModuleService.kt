@@ -12,6 +12,11 @@ interface TestModuleService {
     @POST(IServiceConstants.API.mock_test_questions)
     fun getQuestions(@FieldMap userParams: HashMap<String, String>): Call<APIResponse<MutableList<TestOptionsModel>>>
 
+
+    @FormUrlEncoded
+    @POST(IServiceConstants.API.submit_ex)
+    fun submitResult(@FieldMap userParams: HashMap<String, String>): Call<APIResponse<ExamCompleteModel>>
+
     @FormUrlEncoded
     @POST(IServiceConstants.API.start_exam)
     fun getPurchasedQuestions(@FieldMap userParams: HashMap<String, String>): Call<APIResponse<PurchasedTestOptionsModel>>

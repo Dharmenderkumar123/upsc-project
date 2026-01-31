@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.cmt.helper.IConstants
 import com.cmt.viewModel.activity.YoutubeVideoVM
 import com.the_pride_ias.databinding.ActivityYoutubeVideoPlayBinding
+import kotlin.system.exitProcess
 
 
 class YoutubeVideoPlayActivity : AppCompatActivity() {
@@ -29,6 +30,10 @@ class YoutubeVideoPlayActivity : AppCompatActivity() {
         }
         setContentView(binding.root)
         //configVimeoClient();
+
+        if (android.os.Debug.isDebuggerConnected() || android.os.Debug.waitingForDebugger()) {
+            exitProcess(0)
+        }
 
         binding.webView.settings.pluginState = WebSettings.PluginState.ON
         binding.webView.settings.pluginState = WebSettings.PluginState.ON_DEMAND

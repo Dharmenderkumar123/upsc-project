@@ -13,4 +13,6 @@ class TestOptionsModel : Serializable {
     var isSelected: Boolean = false
     var isSelectedQues: Boolean = false
     var selectedOption: String = ""
+    var selectedAns: String = ""
+    var solution: String = ""
 }

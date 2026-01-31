@@ -19,3 +19,15 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# 1. Keep your API interfaces
+-keep class com.cmt.services.api.** { *; }
+
+# 2. Keep your Data Classes (Models) so JSON parsing doesn't fail
+# Replace 'com.cmt.models' with the actual package of your data classes
+-keep class com.cmt.models.** { *; }
+
+# 3. Standard Retrofit/OkHttp rules
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature, Exceptions

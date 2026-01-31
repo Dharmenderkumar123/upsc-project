@@ -151,6 +151,16 @@
                         tools:text="@string/txt_robin_van_persie" />
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/tvSolution"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:elevation="10dp"
+                    android:textColor="@color/colorText"
+                    android:textSize="18sp"
+                    android:layout_above="@id/view" />
+
             </LinearLayout>
 
 

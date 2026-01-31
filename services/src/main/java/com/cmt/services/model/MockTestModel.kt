@@ -7,4 +7,5 @@ class MockTestModel {
     val description: String?=null
     val attempts: String?=null
     val attempted: String?=null
+    val is_attempted : Int=0
 }

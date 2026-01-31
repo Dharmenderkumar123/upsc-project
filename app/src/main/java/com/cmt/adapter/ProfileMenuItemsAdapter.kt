@@ -31,9 +31,8 @@ class ProfileMenuItemsAdapter(val context: Context, val dataset: MutableList<Pro
 
             binding.menuItemLayout.setOnClickListener {
                 if (datamodel.type == IConstants.ProfileType.Results) {
-                    val dummyData = getDummyStudents()
-                    val bottomSheet = StudentBottomSheet(dummyData)
-                    bottomSheet.show(fragmentManager, "StudentBottomSheetTag")
+//                    val bottomSheet = StudentBottomSheet()
+//                    bottomSheet.show(fragmentManager, "StudentBottomSheetTag")
                 } else if (datamodel.type != IConstants.ProfileType.Logout) {
                     val intent = Intent(context, PlainActivity::class.java)
                     intent.putExtra(IConstants.IntentStrings.type, datamodel.type)

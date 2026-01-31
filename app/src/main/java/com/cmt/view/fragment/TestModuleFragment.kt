@@ -9,19 +9,23 @@ import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cmt.TestModule.QuestionAnswerAdapter
 import com.cmt.TestModule.TestCancelPopUpFragment
 import com.cmt.adapter.TestQuestionNumberAdapter
 import com.cmt.helper.ICallback
+import com.cmt.model.UserAnswer
 import com.cmt.services.model.TestOptionsModel
 import com.cmt.viewModel.fragment.TestScreenVM
+import com.google.gson.Gson
 import com.the_pride_ias.databinding.FragmentTestModuleBinding
 
 class TestModuleFragment(var lang: String, var testId: String) : Fragment() {
     lateinit var binding: FragmentTestModuleBinding
     private var questionsAdapter: QuestionAnswerAdapter? = null
     private var questionsCountAdapter: TestQuestionNumberAdapter? = null
+    private var listQuestionAns= ArrayList<UserAnswer>()
     private var position: Int? = null
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,20 +61,15 @@ class TestModuleFragment(var lang: String, var testId: String) : Fragment() {
         }
 
         binding.viewModel?.testData?.observe(requireActivity()) {
-
+            testId= it?.exam_id.toString()
             binding.rvQuestions.apply {
-                questionsCountAdapter =
-                    TestQuestionNumberAdapter(requireActivity(), it, object : ICallback {
+                questionsCountAdapter = TestQuestionNumberAdapter(requireActivity(), it.data, object : ICallback {
                         override fun delegate(any: Any?) {
                             if (any != null) {
                                 position = any as Int?
-                                binding.questionsView.setCurrentItem(
-                                    position!!,
-                                    true
-                                )
+                                binding.questionsView.setCurrentItem(position!!, true)
                                 binding.rvQuestions.scrollToPosition(position!!)
                                 questionsCountAdapter?.updatePosition(position!!)
-
                                 binding.layoutQuestions.startAnimation(outToRightAnimation())
                                 binding.layoutQuestions.isVisible = false
                                 binding.ivClose.isVisible = false
@@ -85,7 +84,7 @@ class TestModuleFragment(var lang: String, var testId: String) : Fragment() {
 
             binding.recyclerView.apply {
                 questionsCountAdapter =
-                    TestQuestionNumberAdapter(requireActivity(), it, object : ICallback {
+                    TestQuestionNumberAdapter(requireActivity(), it.data, object : ICallback {
                         override fun delegate(any: Any?) {
                             if (any != null) {
                                 position = any as Int?
@@ -104,7 +103,7 @@ class TestModuleFragment(var lang: String, var testId: String) : Fragment() {
 
 
             binding.questionsView.apply {
-                questionsAdapter = QuestionAnswerAdapter(binding.root.context, it)
+                questionsAdapter = QuestionAnswerAdapter(binding.root.context, it.data)
                 adapter = questionsAdapter
                 isUserInputEnabled = false
                 questionsAdapter?.mCallBack =
@@ -117,10 +116,20 @@ class TestModuleFragment(var lang: String, var testId: String) : Fragment() {
                         }
 
                         override fun nextQuestions() {
+
+                            val currModel = it.data?.get(binding.questionsView.currentItem)
+                            val newQid = (currModel?.question_id ?: "0").toInt()
+                            val alreadyExists = listQuestionAns.any { it.qid == newQid }
+                            if (!alreadyExists) {
+                                listQuestionAns.add(UserAnswer(qid = newQid, currModel?.selectedAns))
+                            } else {
+                                val index = listQuestionAns.indexOfFirst { it.qid == newQid }
+                                listQuestionAns[index] = UserAnswer(qid = newQid, currModel?.selectedAns)
+                            }
+
                             binding.questionsView.setCurrentItem(
                                 binding.questionsView.currentItem + 1,
-                                true
-                            )
+                                true)
                             binding.recyclerView.scrollToPosition(binding.questionsView.currentItem)
                             questionsCountAdapter?.updatePosition(binding.questionsView.currentItem)
                         }
@@ -142,6 +151,14 @@ class TestModuleFragment(var lang: String, var testId: String) : Fragment() {
 
 
             }
+
+            binding.viewModel?.testDataResult?.observe(viewLifecycleOwner, Observer { it1->
+//                    val bottomSheet = StudentBottomSheet(it1.exam_id)
+//                    bottomSheet.show(requireActivity().supportFragmentManager, "StudentBottomSheetTag")
+
+                val bottomSheet = SeeMyResultBottomSheet(it1)
+                    bottomSheet.show(requireActivity().supportFragmentManager, "StudentBottomSheetTag")
+            })
 
         }
     }
@@ -178,8 +195,11 @@ class TestModuleFragment(var lang: String, var testId: String) : Fragment() {
             override fun cancelTest(cancel: Boolean) {
                 if (cancel) {
                     testCancelPOP.dismiss()
-                    requireActivity().onBackPressed()
-                    requireActivity().finish()
+                    val jsonArrayString: String = Gson().toJson(listQuestionAns)
+                    binding.viewModel?.submitResult(requireContext(),testId,jsonArrayString)
+
+//                    requireActivity().onBackPressed()
+//                    requireActivity().finish()
                     /*val intent = Intent(requireActivity(), MainActivity::class.java)
                     requireActivity().startActivity(intent)
                     requireActivity().overridePendingTransition(R.anim.enter, R.anim.exit)

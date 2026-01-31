@@ -23,7 +23,8 @@ class AgricetCategoryAdapter(
     var description: String? = null,
     val modelSubjects: SubjectsListModel? = null,
     val isPurchased: Boolean,
-    val subCategoryId: String?
+    val subCategoryId: String?,
+    val paidStatus: String? ="no"
 ) :
     RecyclerView.Adapter<AgricetCategoryAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemsAgricetBinding) :
@@ -36,7 +37,7 @@ class AgricetCategoryAdapter(
 
 
             binding.layout.setOnClickListener {
-                if(!isPurchased){
+                if(paidStatus=="no"){
                  val intent = Intent(context, PlainActivity::class.java)
                 intent.putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.BuyPlan)
                 intent.putExtra(IConstants.IntentStrings.payload, "Buy Plan")

@@ -33,6 +33,21 @@ class TestModuleAPI {
         })
     }
 
+    fun submitResult(params: HashMap<String, String>, retrofitCallBack: RetrofitCallBack) {
+        val client: TestModuleService = APIClient().getInstance().create(TestModuleService::class.java)
+        val call: Call<APIResponse<ExamCompleteModel>> = client.submitResult(params)
+        call.enqueue(object : Callback<APIResponse<ExamCompleteModel>> {
+            override fun onResponse(call: Call<APIResponse<ExamCompleteModel>>, response: Response<APIResponse<ExamCompleteModel>>) {
+                retrofitCallBack.responseListener(response.body())
+            }
+
+            override fun onFailure(call: Call<APIResponse<ExamCompleteModel>>, t: Throwable) {
+                val error = t.message ?: "Not found"
+                retrofitCallBack.responseListener(response = null, error = error)
+            }
+        })
+    }
+
     fun purchasedQuestionsList(params: HashMap<String, String>, retrofitCallBack: RetrofitCallBack) {
         val client: TestModuleService =
             APIClient().getInstance().create(TestModuleService::class.java)

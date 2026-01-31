@@ -20,12 +20,24 @@ class APIClient {
                 .client(provideOkHttpClient(bearer ?: ""))
                 .build()
         }
+
+
         return retrofit ?: Retrofit.Builder()
             .baseUrl(BuildConfig.API)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
     }
+
+    fun getInstanceLive(bearer: String? = null): Retrofit {
+           return Retrofit.Builder()
+                .baseUrl("https://theprideias.com/webapi/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(provideOkHttpClient(bearer ?: ""))
+                .build()
+    }
+
+
 
     fun vimeoInstance(bearer: String? = null): Retrofit {
         if (retrofit == null) {

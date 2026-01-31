@@ -68,7 +68,7 @@ class SearchFragment : Fragment() {
                             binding.root.context,
                             it,
                             isPurchased = false,
-                            subCategoryId = "1"
+                            subCategoryId = "1",
                         )
                     }
                 }
@@ -77,6 +77,5 @@ class SearchFragment : Fragment() {
                 binding.viewModel?.noDataMsg?.value = getString(R.string.no_subjects_available)
             }
         }
-
     }
 }

@@ -28,6 +28,7 @@ import com.cmt.viewModel.activity.PdfActivityVM
 import com.rajat.pdfviewer.PdfRendererView
 import com.the_pride_ias.R
 import com.the_pride_ias.databinding.ActivityPdfBinding
+import kotlin.system.exitProcess
 
 class PdfActivity : AppCompatActivity() {
     lateinit var binding: ActivityPdfBinding
@@ -59,9 +60,13 @@ class PdfActivity : AppCompatActivity() {
             lifecycleOwner = this@PdfActivity
         }
         setContentView(binding.root)
+        if (android.os.Debug.isDebuggerConnected() || android.os.Debug.waitingForDebugger()) {
+            exitProcess(0)
+        }
 
         binding.tvTitle.text = getString(R.string.title_material)
         val url = intent.getStringExtra(IConstants.IntentStrings.payload)
+        val sub_cat_id = intent.getStringExtra(IConstants.IntentStrings.sub_cat_id)
 
         val pdfUrl = "https://docs.google.com/gview?embedded=true&url=$url"
         val finalUrl = getDirectPdfUrl(pdfUrl)
@@ -91,8 +96,9 @@ class PdfActivity : AppCompatActivity() {
                     val totalPages = pdfView.totalPageCount
                     customScrollbar.max =  totalPages - 1
 
-                    val lockDecorator = PdfPageLockDecorator(this@PdfActivity, 50)
-                    pdfView.recyclerView.addItemDecoration(lockDecorator)
+//                    val lockDecorator = PdfPageLockDecorator(this@PdfActivity, 50, onBuyClick = {})
+//                    pdfView.recyclerView.addItemDecoration(lockDecorator)
+
 
                     binding.customScrollbar.setScrollStateListener(object : VerticalSeekBar.ScrollStateListener {
 
@@ -140,19 +146,50 @@ class PdfActivity : AppCompatActivity() {
                         }
                     })
 
-                    pdfView.recyclerView.addOnItemTouchListener(object : androidx.recyclerview.widget.RecyclerView.SimpleOnItemTouchListener() {
-                        override fun onInterceptTouchEvent(rv: androidx.recyclerview.widget.RecyclerView, e: MotionEvent): Boolean {
+//                    pdfView.recyclerView.addOnItemTouchListener(object : androidx.recyclerview.widget.RecyclerView.SimpleOnItemTouchListener() {
+//                        override fun onInterceptTouchEvent(rv: androidx.recyclerview.widget.RecyclerView, e: MotionEvent): Boolean {
+//                            if (e.action == MotionEvent.ACTION_UP) {
+//                                val child = rv.findChildViewUnder(e.x, e.y)
+//                                if (child != null) {
+//                                    val position = rv.getChildAdapterPosition(child)
+//                                    if (position >= 50) {
+//
+//                                        return true
+//                                    }
+//                                }
+//                            }
+//                            return false
+//                        }
+//                    })
+
+                    val decorator = PdfPageLockDecorator(this@PdfActivity, 50,R.drawable.upsc_image) {
+                        val intent = Intent(this@PdfActivity, PlainActivity::class.java).apply {
+                            putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.BuyPlan)
+                            putExtra(IConstants.IntentStrings.payload, "Buy Plan")
+                            putExtra(IConstants.IntentStrings.id, sub_cat_id)
+                            putExtra(IConstants.IntentStrings.cat_type, "1")
+                        }
+                        startActivity(intent)
+                    }
+
+                    pdfView.recyclerView.addItemDecoration(decorator)
+
+                    pdfView.recyclerView.addOnItemTouchListener(object : RecyclerView.SimpleOnItemTouchListener() {
+                        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
                             if (e.action == MotionEvent.ACTION_UP) {
-                                val child = rv.findChildViewUnder(e.x, e.y)
-                                if (child != null) {
+                                // Check every visible view in the RecyclerView
+                                for (i in 0 until rv.childCount) {
+                                    val child = rv.getChildAt(i)
                                     val position = rv.getChildAdapterPosition(child)
-                                    if (position >= 50) {
-                                        val intent = Intent(this@PdfActivity, PlainActivity::class.java).apply {
-                                            putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.BuyPlan)
-                                            putExtra(IConstants.IntentStrings.payload, "Buy Plan")
+
+                                    if (position >= 50) { // Same limit as decorator
+                                        val rect = decorator.getButtonRectForChild(child)
+
+                                        // Check if touch (e.x, e.y) is inside this specific button
+                                        if (rect.contains(e.x, e.y)) {
+                                            decorator.onBuyClick()
+                                            return true // Event handled, don't scroll the PDF
                                         }
-                                        startActivity(intent)
-                                        return true
                                     }
                                 }
                             }

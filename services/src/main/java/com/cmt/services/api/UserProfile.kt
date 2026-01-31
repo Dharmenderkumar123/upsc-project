@@ -5,6 +5,7 @@ import com.cmt.services.helper.APIClient
 import com.cmt.services.helper.RetrofitCallBack
 import com.cmt.services.model.APIResponse
 import com.cmt.services.model.UserDetailsModel
+import com.cmt.services.model.UserRank
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -27,6 +28,25 @@ class UserProfile {
             }
 
             override fun onFailure(call: Call<APIResponse<UserDetailsModel>>, t: Throwable) {
+                val error = t.message ?: "Not found"
+                retrofitCallBack.responseListener(response = null, error = error)
+            }
+
+        })
+    }
+
+    fun getTestResult(params: HashMap<String, String>, retrofitCallBack: RetrofitCallBack) {
+        val client: ProfileAPI = APIClient().getInstance().create(ProfileAPI::class.java)
+        val call: Call<APIResponse<MutableList<UserRank>>> = client.getTestResult(params)
+        call.enqueue(object : Callback<APIResponse<MutableList<UserRank>>>{
+            override fun onResponse(
+                call: Call<APIResponse<MutableList<UserRank>>>,
+                response: Response<APIResponse<MutableList<UserRank>>>
+            ) {
+                retrofitCallBack.responseListener(response.body())
+            }
+
+            override fun onFailure(call: Call<APIResponse<MutableList<UserRank>>>, t: Throwable) {
                 val error = t.message ?: "Not found"
                 retrofitCallBack.responseListener(response = null, error = error)
             }

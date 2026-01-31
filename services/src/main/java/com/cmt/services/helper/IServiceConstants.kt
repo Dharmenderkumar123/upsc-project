@@ -9,7 +9,9 @@ object IServiceConstants {
         const val change_password = "change_password"
         const val forgot_password = "forgot_password"
         const val version_check = "version_check"
+
         const val profile = "profile"
+        const val test_result = "mock_test_questions/rank"
         const val razerpayorderid = "razerpayorderid"
         const val payment_success = "payment_success"
         const val update_profile = "update_profile"
@@ -31,6 +33,7 @@ object IServiceConstants {
         const val Subject_materials = "Subject_materials"
         const val my_orders = "my_orders"
         const val mock_test_questions = "mock_test_questions"
+        const val submit_ex = "mock_test_questions/submit_exam"
         const val start_exam = "start_exam"
         const val submit_exam = "submit_exam"
         const val review_exam = "review_exam"
@@ -46,8 +49,8 @@ object IServiceConstants {
         const val reset_password = "reset_password"
         const val notifications = "notifications"
         const val auto_login = "auto_login"
-        const val getPackages = "/api/courses/getPackages"
-        const val paymentDetails = "/api/courses/getPaymentDetails"
+        const val getPackages = "courses/getPackages"
+        const val paymentDetails = "courses/getPaymentDetails"
 
 
     }

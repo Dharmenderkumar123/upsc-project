@@ -27,6 +27,8 @@ class EbookCourseSubjectAdapter(
                 val activity = context as? PlainActivity
                 val intent = Intent(activity, PdfActivity::class.java)
                 intent.putExtra(IConstants.IntentStrings.payload, dataModel.pdf)
+                intent.putExtra(IConstants.IntentStrings.cat_type, "1")
+                intent.putExtra(IConstants.IntentStrings.sub_cat_id, dataModel.sub_cat_id)
                 activity?.startActivity(intent)
                 activity?.overridePendingTransition(R.anim.enter, R.anim.exit)
             }

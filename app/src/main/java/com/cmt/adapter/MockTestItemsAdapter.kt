@@ -9,6 +9,7 @@ import com.cmt.services.model.MockTestModel
 import com.cmt.view.activity.FullPlainActivity
 import com.cmt.view.dialog.TestAttemptsDialog
 import com.cmt.view.dialog.TestInstructionsDailog
+import com.cmt.view.fragment.StudentBottomSheet
 import com.the_pride_ias.databinding.ItemsMockTestBinding
 
 class MockTestItemsAdapter(val context: Context, val dataset: MutableList<MockTestModel>) :
@@ -17,27 +18,27 @@ class MockTestItemsAdapter(val context: Context, val dataset: MutableList<MockTe
         RecyclerView.ViewHolder(binding.root) {
         fun binder(datamodel: MockTestModel) {
             binding.model = datamodel
-
+            if (datamodel.is_attempted ==1){
+                binding.testBtn.text="See Results"
+            }
             binding.testBtn.setOnClickListener {
-                /*if (datamodel.attempts == datamodel.attempted) {
-                    val activity = context as? FullPlainActivity
-                    val dailog = datamodel.test_id?.let { it1 -> TestAttemptsDialog() }
-                    activity?.supportFragmentManager?.let { dailog?.show(it, null) }
-                } else {
-                    val activity = context as? FullPlainActivity
-                    val dailog = datamodel.test_id?.let { it1 -> TestInstructionsDailog(it1, "") }
-                    activity?.supportFragmentManager?.let { dailog?.show(it, null) }
-                }*/
-                if (datamodel.attempted!!.toInt() < datamodel.attempts!!.toInt()) {
+                if (datamodel.is_attempted == 0) {
                     val activity = context as? FullPlainActivity
                     val dailog = datamodel.test_id?.let { it1 -> TestInstructionsDailog(it1, "") }
                     activity?.supportFragmentManager?.let { dailog?.show(it, null) }
                 } else {
                     val activity = context as? FullPlainActivity
-                    val dailog = datamodel.test_id?.let { it1 -> TestAttemptsDialog() }
-                    activity?.supportFragmentManager?.let { dailog?.show(it, null) }
+                     datamodel.test_id?.let { it1 ->
+                        val bottomSheet = StudentBottomSheet(it1)
+                        bottomSheet.show(activity!!.supportFragmentManager, "StudentBottomSheetTag")
+                    /*TestAttemptsDialog()*/ }
+//                    activity?.supportFragmentManager?.let { dailog?.show(it, null) }
                 }
 
+
+//                val activity = context as? FullPlainActivity
+//                val dailog = datamodel.test_id?.let { it1 -> TestInstructionsDailog(it1, "") }
+//                activity?.supportFragmentManager?.let { dailog?.show(it, null) }
             }
 
         }

@@ -6,9 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cmt.model.Student
+import com.cmt.services.model.UserRank
 import com.the_pride_ias.databinding.ItemStudentBinding
 
-class StudentAdapter() : ListAdapter<Student, StudentAdapter.StudentViewHolder>(StudentDiffCallback()) {
+class StudentAdapter(var list: MutableList<UserRank>) : RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {
         val binding = ItemStudentBinding.inflate(
@@ -20,35 +21,21 @@ class StudentAdapter() : ListAdapter<Student, StudentAdapter.StudentViewHolder>(
     }
 
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
-
-    class StudentViewHolder(private val binding: ItemStudentBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(student: Student) {
-            binding.apply {
-                tvSrNo.text = "#${student.srNo}"
-                tvStudentName.text = student.name
-                tvMarks.text = student.marks.toString()
-                tvRank.text = "Rank ${student.rank}"
-
-                // Optional: Handle click events
-                root.setOnClickListener {
-                    // Action when row is clicked
-                }
-            }
+        holder.binding.apply {
+            val model= list[position]
+            tvSrNo.text = "#${position+1}"
+            tvStudentName.text = model.name
+            tvMarks.text = model.marks_obtained
+            tvRank.text = "Rank ${model.rank}"
         }
     }
 
-    // DiffUtil helps with smooth animations and performance
-    class StudentDiffCallback : DiffUtil.ItemCallback<Student>() {
-        override fun areItemsTheSame(oldItem: Student, newItem: Student): Boolean {
-            return oldItem.srNo == newItem.srNo // Use a unique ID
-        }
-
-        override fun areContentsTheSame(oldItem: Student, newItem: Student): Boolean {
-            return oldItem == newItem
-        }
+    override fun getItemCount(): Int {
+       return list.size
     }
+
+
+    class StudentViewHolder(val binding: ItemStudentBinding) : RecyclerView.ViewHolder(binding.root)
+
+
 }

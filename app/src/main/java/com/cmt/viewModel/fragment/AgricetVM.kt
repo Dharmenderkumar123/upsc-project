@@ -103,19 +103,10 @@ class AgricetVM : ViewModel() {
                     if (apiResponse?.error_code == IConstants.Response.valid) {
 
                         val intent = Intent(activity, PlainActivity::class.java)
-                        intent.putExtra(
-                            IConstants.IntentStrings.type,
-                            IConstants.ProfileType.My_Courses
-                        )
-                        intent.putExtra(
-                            IConstants.IntentStrings.payload,
-                            activity?.getString(R.string.tit_my_courses)
-                        )
+                        intent.putExtra(IConstants.IntentStrings.type, IConstants.ProfileType.My_Courses)
+                        intent.putExtra(IConstants.IntentStrings.payload, activity?.getString(R.string.tit_my_courses))
                         activity?.startActivity(intent)
-                        (activity as FragmentActivity).overridePendingTransition(
-                            R.anim.enter,
-                            R.anim.exit
-                        )
+                        (activity as FragmentActivity).overridePendingTransition(R.anim.enter, R.anim.exit)
                     } else {
                         apiResponse?.message?.let { activity?.setSnackBar(it) }
                     }
@@ -126,7 +117,6 @@ class AgricetVM : ViewModel() {
     }
 
     fun createOrderId(view: View) {
-
         val intent = Intent(view.context, PlainActivity::class.java)
         intent.putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.BuyPlan)
         intent.putExtra(IConstants.IntentStrings.payload, "Buy Plan")
@@ -135,11 +125,12 @@ class AgricetVM : ViewModel() {
         view.context.startActivity(intent)
         (view.context as FragmentActivity).overridePendingTransition(R.anim.enter, R.anim.exit)
 
+
 //        val activity = view.context as? PlainActivity
 //        activity?.activityLoader(true)
 //        val params = getGlobalParams(view.context)
 //        subjectsData.value?.price.toString().let {
-//            params[IConstants.Params.grand_total] = it
+//            params[IConstants.Params.grand_total] = "20"
 //        }
 //        AppPreferences().getUserId(view.context).let {
 //            params[IConstants.Params.user_id] = it

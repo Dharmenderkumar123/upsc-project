@@ -14,6 +14,7 @@ import com.cmt.view.fragment.*
 import com.cmt.viewModel.activity.PlainViewModel
 import com.the_pride_ias.R
 import com.the_pride_ias.databinding.ActivityPlainBinding
+import kotlin.system.exitProcess
 
 
 class PlainActivity : BaseActivity() {
@@ -28,6 +29,10 @@ class PlainActivity : BaseActivity() {
         }
 
         setContentView(binding.root)
+
+        if (android.os.Debug.isDebuggerConnected() || android.os.Debug.waitingForDebugger()) {
+            exitProcess(0)
+        }
 
         if (intent.hasExtra(IConstants.IntentStrings.type)) {
             when (intent.getStringExtra(IConstants.IntentStrings.type)) {

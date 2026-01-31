@@ -21,6 +21,7 @@ import com.the_pride_ias.databinding.FragmentSubCourseBinding
 class SubcourseVM : ViewModel() {
     lateinit var binding: FragmentSubCourseBinding
     var typee=0
+    var sub_cat_id=""
     var model1: Courses ?=null
     fun setdata(view: View, model: Courses, type: String, subCategoryId: String?, type1: Int) {
         typee=type1
@@ -40,10 +41,10 @@ class SubcourseVM : ViewModel() {
                 } else {
                     val apiResponse = response as? APIResponse<*>
                     if (apiResponse?.error_code == IConstants.Response.valid) {
-                        val dataResponse =
-                            (apiResponse.data as MutableList<*>).filterIsInstance<SubCourseModel>()
-                                .toMutableList()
-                        binding.recyclerView.apply { adapter = CoursesSubCategoryAdapter(binding.root.context, dataResponse, type,model,subCategoryId,type1) }
+//                        val dataResponse = (apiResponse.data as MutableList<*>).filterIsInstance<SubCourseModel>().toMutableList()
+                        val dataResponse = (apiResponse as APIResponse<MutableList<SubCourseModel>>)
+                        binding.recyclerView.apply { adapter = CoursesSubCategoryAdapter(binding.root.context, dataResponse.data, type,model,subCategoryId,type1) }
+                        binding.layoutPrices.visibility =if(dataResponse.is_paid ==0) View.VISIBLE  else View.INVISIBLE
 
                     } else {
                         binding.recyclerView.setVisibility(View.GONE)
@@ -64,5 +65,4 @@ class SubcourseVM : ViewModel() {
         view.context.startActivity(intent)
         (view.context as FragmentActivity).overridePendingTransition(R.anim.enter, R.anim.exit)
     }
-
 }

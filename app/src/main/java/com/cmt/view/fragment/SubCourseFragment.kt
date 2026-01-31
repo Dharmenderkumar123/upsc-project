@@ -21,7 +21,7 @@ class SubCourseFragment(
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSubCourseBinding.inflate(layoutInflater, container, false).apply {
-            viewModel = ViewModelProvider(this@SubCourseFragment).get(SubcourseVM::class.java)
+            viewModel = ViewModelProvider(this@SubCourseFragment)[SubcourseVM::class.java]
             viewModel?.binding = this
             lifecycleOwner = this@SubCourseFragment
         }
@@ -38,7 +38,5 @@ class SubCourseFragment(
 
         val noString = "$catType not available"
         binding.tvNoCourse.text = noString
-        binding.layoutPrices.visibility =if(!model.is_purchased) View.VISIBLE  else View.INVISIBLE
-
     }
 }

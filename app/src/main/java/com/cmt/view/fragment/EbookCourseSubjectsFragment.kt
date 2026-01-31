@@ -19,8 +19,7 @@ class EbookCourseSubjectsFragment(var model: SubCourseModel) : Fragment() {
     ): View {
         binding =
             FragmentEbookCourseSubjectsBinding.inflate(layoutInflater, container, false).apply {
-                viewModel =
-                    ViewModelProvider(this@EbookCourseSubjectsFragment).get(EbookCourseSubjectVM::class.java)
+                viewModel = ViewModelProvider(this@EbookCourseSubjectsFragment).get(EbookCourseSubjectVM::class.java)
                 viewModel?.binding = this
                 lifecycleOwner = this@EbookCourseSubjectsFragment
             }

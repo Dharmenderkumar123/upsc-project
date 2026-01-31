@@ -15,7 +15,10 @@ import com.cmt.model.ProfileMenuModel
 import com.cmt.services.api.UserProfile
 import com.cmt.services.helper.RetrofitCallBack
 import com.cmt.services.model.APIResponse
+import com.cmt.services.model.SubCourseModel
 import com.cmt.services.model.UserDetailsModel
+import com.cmt.services.model.UserRank
+import com.cmt.view.activity.FullPlainActivity
 import com.cmt.view.activity.MainActivity
 import com.cmt.view.activity.PlainActivity
 import com.the_pride_ias.R
@@ -24,6 +27,7 @@ import com.the_pride_ias.databinding.FragmentProfileBinding
 class ProfileVM : ViewModel() {
     lateinit var binding: FragmentProfileBinding
     val data: MutableLiveData<UserDetailsModel> = MutableLiveData()
+    val testResult: MutableLiveData<MutableList<UserRank>> = MutableLiveData()
 
     fun updateProfile(view: View) {
         val activity = view.context as MainActivity
@@ -61,13 +65,37 @@ class ProfileVM : ViewModel() {
         })
     }
 
+    fun getStudentResult(test_id: String, context: Context){
+        val activity = context as FullPlainActivity
+        val params = HashMap<String, String>()
+        activity.activityLoader(true)
+        params[IConstants.Params.test_id] = test_id
+        params[IConstants.Params.user_id] = AppPreferences().getUserId(context)
+        UserProfile().getTestResult(params, object : RetrofitCallBack {
+            override fun responseListener(response: Any?, error: String?) {
+                activity.activityLoader(false)
+                if (error != null) {
+                    activity.setSnackBar(error)
+                } else {
+                    val apiResponse = response as? APIResponse<*>
+                    if (apiResponse?.error_code == IConstants.Response.valid) {
+                        testResult.value = (apiResponse.data as MutableList<*>).filterIsInstance<UserRank>().toMutableList()
+                    } else {
+                        apiResponse?.message?.let { activity.setSnackBar(it) }
+                    }
+                }
+            }
+
+        })
+    }
+
     fun setMenuItems(context: Context, supportFragmentManager: FragmentManager) {
         val items = mutableListOf<ProfileMenuModel>()
 
-        items.add(ProfileMenuModel(
-                context.getString(R.string.tit_my_results),
-                R.drawable.ic_terms_conditionss,
-                IConstants.ProfileType.Results))
+//        items.add(ProfileMenuModel(
+//                context.getString(R.string.tit_my_results),
+//                R.drawable.ic_terms_conditionss,
+//                IConstants.ProfileType.Results))
 
         items.add(
             ProfileMenuModel(

@@ -12,6 +12,7 @@ import com.razorpay.PaymentResultListener
 import com.the_pride_ias.R
 import com.the_pride_ias.databinding.ActivityPaymentBinding
 import org.json.JSONObject
+import kotlin.system.exitProcess
 
 class PaymentActivity : BaseActivity(), PaymentResultListener {
     private val classTag = "PAYMENT_ACT"
@@ -26,7 +27,9 @@ class PaymentActivity : BaseActivity(), PaymentResultListener {
             lifecycleOwner = this@PaymentActivity
         }
         setContentView(binding.root)
-
+        if (android.os.Debug.isDebuggerConnected() || android.os.Debug.waitingForDebugger()) {
+            exitProcess(0)
+        }
         try {
             Checkout.preload(applicationContext)
 
@@ -36,7 +39,8 @@ class PaymentActivity : BaseActivity(), PaymentResultListener {
             if (payload != null) {
                 val jsonObject = JSONObject(payload)
                 Log.d("sakdbaksd", "onCreate: ${jsonObject}")
-                checkout.setKeyID(jsonObject.getString("razorpay_key"))
+//                checkout.setKeyID(jsonObject.getString("razorpay_key"))
+                checkout.setKeyID("rzp_test_SAA4AZr56Q1yzc")
                 checkout.open(this, jsonObject)
             }
         }catch (e: Exception){
@@ -64,7 +68,6 @@ class PaymentActivity : BaseActivity(), PaymentResultListener {
         }
 
         Log.d(classTag, "onPaymentError: $p1")
-
         setResult(Activity.RESULT_CANCELED, intent)
         onBackPressed()
     }
