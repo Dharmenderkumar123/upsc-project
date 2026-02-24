@@ -218,6 +218,7 @@ class MainFragmentVM : ViewModel() {
         val activity = view.context as MainActivity
         val intent = Intent(activity, PlainActivity::class.java)
         intent.putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.EbookSubjectsType)
+        intent.putExtra(IConstants.IntentStrings.courseType, "notes")
         activity.startActivity(intent)
         activity.overridePendingTransition(R.anim.enter, R.anim.exit)
     }

@@ -40,7 +40,7 @@ class PaymentActivity : BaseActivity(), PaymentResultListener {
                 val jsonObject = JSONObject(payload)
                 Log.d("sakdbaksd", "onCreate: ${jsonObject}")
 //                checkout.setKeyID(jsonObject.getString("razorpay_key"))
-                checkout.setKeyID("rzp_test_SAA4AZr56Q1yzc")
+                checkout.setKeyID("rzp_live_SA9vh6XjnkoO89")
                 checkout.open(this, jsonObject)
             }
         }catch (e: Exception){

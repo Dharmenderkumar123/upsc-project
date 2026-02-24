@@ -4,6 +4,7 @@ import java.io.Serializable
 
 class AgricatCategoryModel : Serializable{
     val package_id: String? = null
+    val paid_status: String?=null
     val subject_id: String? = null
     val image: String? = null
     val title: String? = null

@@ -6,6 +6,7 @@ class EbookDataModel {
     var image: String? = null
     var pdf: String? = null
     var sub_cat_id: String? = null
+    var is_purchased: Boolean? = null
 
 }
 

@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "134490548666",
-    "project_id": "the-pride-ias",
-    "storage_bucket": "the-pride-ias.appspot.com"
+    "project_number": "687039739702",
+    "project_id": "theprideias",
+    "storage_bucket": "theprideias.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:134490548666:android:08804cb4bf78391f025583",
+        "mobilesdk_app_id": "1:687039739702:android:0178b0290babcbd2d22597",
         "android_client_info": {
           "package_name": "com.the_pride_ias.academy"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "134490548666-gu80120joj6m919c8584f4dssnft8uk2.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDYCR17O4FaAUnFiwJnjIWnacH3CEB7yBk"
+          "current_key": "AIzaSyDv_cSg4gFLjsw8TnQnSblRVXs2mzS9my0"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "134490548666-gu80120joj6m919c8584f4dssnft8uk2.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

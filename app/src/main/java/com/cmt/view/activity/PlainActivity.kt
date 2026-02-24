@@ -39,8 +39,9 @@ class PlainActivity : BaseActivity() {
                 IConstants.FragmentType.AgricetCategory -> {
                     binding.tvTitle.visibility = View.VISIBLE
                     val model = intent.getSerializableExtra(IConstants.IntentStrings.payload) as SubCourseModel
+                    val courseType = intent.getStringExtra(IConstants.IntentStrings.courseType)
                     binding.tvTitle.text = model.sub_category_name
-                    loadFragment(AgricetCategoryFragment(model))
+                    loadFragment(AgricetCategoryFragment(model,courseType))
                 }
                 IConstants.ProfileType.My_Courses -> {
                     binding.tvTitle.text = intent.getStringExtra(IConstants.IntentStrings.payload)
@@ -50,7 +51,8 @@ class PlainActivity : BaseActivity() {
                     binding.tvTitle.text = intent.getStringExtra(IConstants.IntentStrings.payload)
                     val id = intent.getStringExtra(IConstants.IntentStrings.id)
                     val cat_type = intent.getStringExtra(IConstants.IntentStrings.cat_type)
-                    loadFragment(BuyPlanFragment(id,(cat_type ?: "0").toInt()))
+                    val courseType = intent.getStringExtra(IConstants.IntentStrings.courseType)
+                    loadFragment(BuyPlanFragment(id,(cat_type ?: "0").toInt(),courseType))
                 }
                 IConstants.ProfileType.My_Material -> {
                     binding.tvTitle.text = intent.getStringExtra(IConstants.IntentStrings.payload)
@@ -115,10 +117,9 @@ class PlainActivity : BaseActivity() {
                     loadFragment(OnlineTestDetailsFragment())
                 }
                 IConstants.FragmentType.EbookSubjects -> {
-                    val model =
-                        intent.getSerializableExtra(IConstants.IntentStrings.payload) as SubCourseModel
+                    val model = intent.getSerializableExtra(IConstants.IntentStrings.payload) as SubCourseModel
                     binding.tvTitle.text = model.sub_category_name
-                    loadFragment(EbookCourseSubjectsFragment(model))
+                    loadFragment(EbookCourseSubjectsFragment(model,"notes"))
                 }
                 IConstants.FragmentType.EditProfile -> {
                     binding.tvTitle.text = getString(R.string.tit_edit_profile)
@@ -130,11 +131,13 @@ class PlainActivity : BaseActivity() {
                 }
                 IConstants.FragmentType.Ebook -> {
                     binding.tvTitle.text = getString(R.string.tit_ebook)
-                    loadFragment(EBookFragment())
+                    val courseType: String = intent.getStringExtra(IConstants.IntentStrings.courseType).toString()
+                    loadFragment(EBookFragment(courseType))
                 }
                 IConstants.FragmentType.EbookSubjectsType -> {
                     binding.tvTitle.text = getString(R.string.tit_ebook)
-                    loadFragment(EBookFragment())
+                    val courseType: String = intent.getStringExtra(IConstants.IntentStrings.courseType).toString()
+                    loadFragment(EBookFragment(courseType))
                 }
                 IConstants.FragmentType.TestScreen -> {
                     binding.tvTitle.text = getString(R.string.txt_sample_test)

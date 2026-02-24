@@ -21,11 +21,13 @@ import com.the_pride_ias.databinding.FragmentSubCourseBinding
 class SubcourseVM : ViewModel() {
     lateinit var binding: FragmentSubCourseBinding
     var typee=0
+    var courseType=""
     var sub_cat_id=""
     var model1: Courses ?=null
     fun setdata(view: View, model: Courses, type: String, subCategoryId: String?, type1: Int) {
         typee=type1
         model1=model
+        courseType=type
         val activity = view.context as? FullPlainActivity
         activity?.activityLoader(true)
         val params = getGlobalParams(view.context)
@@ -43,8 +45,8 @@ class SubcourseVM : ViewModel() {
                     if (apiResponse?.error_code == IConstants.Response.valid) {
 //                        val dataResponse = (apiResponse.data as MutableList<*>).filterIsInstance<SubCourseModel>().toMutableList()
                         val dataResponse = (apiResponse as APIResponse<MutableList<SubCourseModel>>)
-                        binding.recyclerView.apply { adapter = CoursesSubCategoryAdapter(binding.root.context, dataResponse.data, type,model,subCategoryId,type1) }
-                        binding.layoutPrices.visibility =if(dataResponse.is_paid ==0) View.VISIBLE  else View.INVISIBLE
+                        binding.recyclerView.apply { adapter = CoursesSubCategoryAdapter(binding.root.context, dataResponse.data, type,model,subCategoryId,type1,courseType) }
+                        binding.layoutPrices.visibility =if(dataResponse.is_paid ==0 ) View.VISIBLE  else View.INVISIBLE
 
                     } else {
                         binding.recyclerView.setVisibility(View.GONE)
@@ -62,6 +64,7 @@ class SubcourseVM : ViewModel() {
         intent.putExtra(IConstants.IntentStrings.payload, "Buy Plan")
         intent.putExtra(IConstants.IntentStrings.id, model1?.category_id.toString())
         intent.putExtra(IConstants.IntentStrings.cat_type, typee.toString())
+        intent.putExtra(IConstants.IntentStrings.courseType, courseType)
         view.context.startActivity(intent)
         (view.context as FragmentActivity).overridePendingTransition(R.anim.enter, R.anim.exit)
     }

@@ -28,6 +28,4 @@ class MainFragment : Fragment() {
         binding.viewModel?.setCourseData(view)
         binding.viewModel?.setEBooksData(view)
     }
-
-
 }

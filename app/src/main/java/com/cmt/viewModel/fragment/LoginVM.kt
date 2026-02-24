@@ -57,13 +57,9 @@ class LoginVM : ViewModel() {
                                 AppController.PassWordType = IConstants.Defaults.login
                                 //AppPreferences().setUserId(activity, response?.user_id)
                                 val intent = Intent(activity, FullPlainActivity::class.java)
-                                intent.putExtra(
-                                    IConstants.IntentStrings.type,
-                                    IConstants.FragmentType.Otp
-                                )
+                                intent.putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.Otp)
                                 intent.putExtra(IConstants.IntentStrings.payload, response?.user_id)
-                                Toast.makeText(activity, "Please verify OTP", Toast.LENGTH_SHORT)
-                                    .show()
+                                Toast.makeText(activity, "Please verify OTP", Toast.LENGTH_SHORT).show()
                                 activity.startActivity(intent)
                                 activity.overridePendingTransition(R.anim.enter, R.anim.exit)
                                 binding.ietMail.text = null
@@ -71,8 +67,7 @@ class LoginVM : ViewModel() {
                             } else {
                                 val intent = Intent(activity, MainActivity::class.java)
                                 AppPreferences().setUserId(activity, response?.user_id)
-                                Toast.makeText(activity, "Successfully Login", Toast.LENGTH_SHORT)
-                                    .show()
+                                Toast.makeText(activity, "Successfully Login", Toast.LENGTH_SHORT).show()
                                 activity.startActivity(intent)
                                 activity.overridePendingTransition(R.anim.enter, R.anim.exit)
                                 activity.finishAffinity()

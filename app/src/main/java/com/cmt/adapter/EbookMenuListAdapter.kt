@@ -8,13 +8,15 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.cmt.helper.IConstants
 import com.cmt.services.model.Courses
-import com.cmt.services.model.EbookDataModel
 import com.cmt.view.activity.FullPlainActivity
-import com.cmt.view.activity.PlainActivity
 import com.the_pride_ias.R
 import com.the_pride_ias.databinding.ItemsTotalListEbookBinding
 
-class EbookMenuListAdapter(val context: Context, val dataset: MutableList<Courses>) :
+class EbookMenuListAdapter(
+    val context: Context,
+    val dataset: MutableList<Courses>,
+    val courseType: String
+) :
     RecyclerView.Adapter<EbookMenuListAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemsTotalListEbookBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -26,6 +28,7 @@ class EbookMenuListAdapter(val context: Context, val dataset: MutableList<Course
                 intent.putExtra(IConstants.IntentStrings.courseType, IConstants.IntentStrings.ebook)
                 intent.putExtra(IConstants.IntentStrings.catType, "Notes")
                 intent.putExtra(IConstants.IntentStrings.payload, dataModel)
+                intent.putExtra(IConstants.IntentStrings.courseType, courseType)
                 context.startActivity(intent)
                 (context as FragmentActivity).overridePendingTransition(R.anim.enter, R.anim.exit)
             }
@@ -33,8 +36,7 @@ class EbookMenuListAdapter(val context: Context, val dataset: MutableList<Course
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding =
-            ItemsTotalListEbookBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemsTotalListEbookBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 

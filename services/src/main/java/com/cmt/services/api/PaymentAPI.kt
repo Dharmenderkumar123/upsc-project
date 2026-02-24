@@ -16,10 +16,7 @@ class PaymentAPI {
         val client: Payment = APIClient().getInstance().create(Payment::class.java)
         val call: Call<APIResponse<Any>> = client.paySuccess(params)
         call.enqueue(object : Callback<APIResponse<Any>> {
-            override fun onResponse(
-                call: Call<APIResponse<Any>>,
-                response: Response<APIResponse<Any>>
-            ) {
+            override fun onResponse(call: Call<APIResponse<Any>>, response: Response<APIResponse<Any>>) {
                 retrofitCallBack.responseListener(response.body())
             }
 

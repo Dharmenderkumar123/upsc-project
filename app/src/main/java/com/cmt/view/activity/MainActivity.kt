@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
 //    private val onlineTestFragment = OnlineTestFragment()
 
-    private val eBookFragment = EBookFragment()
+    private val eBookFragment = EBookFragment("notes")
     private val currentAffairs = CurrentAffairsListFragment()
     private val profileFragment = ProfileFragment()
 

@@ -10,7 +10,7 @@ import com.cmt.adapter.EbookMenuListAdapter
 import com.cmt.viewModel.fragment.EBookVM
 import com.the_pride_ias.databinding.FragmentEBookBinding
 
-class EBookFragment : Fragment() {
+class EBookFragment(val courseType: String) : Fragment() {
     lateinit var binding: FragmentEBookBinding
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +31,7 @@ class EBookFragment : Fragment() {
         binding.viewModel?.ebookData?.observe(requireActivity()) {
             it?.let {
                 binding.recycleView.apply {
-                    adapter = EbookMenuListAdapter(binding.root.context, it)
+                    adapter = EbookMenuListAdapter(binding.root.context, it,courseType)
                 }
 
             }

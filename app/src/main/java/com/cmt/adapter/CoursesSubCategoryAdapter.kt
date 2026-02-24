@@ -19,7 +19,8 @@ class CoursesSubCategoryAdapter(
     var type: String,
     val model: Courses,
     val subCategoryId: String?,
-    val type1: Int
+    val type1: Int,
+    val courseType: String="course"
 ) :
     RecyclerView.Adapter<CoursesSubCategoryAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemSubcourseBinding) :
@@ -56,12 +57,14 @@ class CoursesSubCategoryAdapter(
                     val intent = Intent(context, PlainActivity::class.java)
                     intent.putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.AgricetCategory)
                     intent.putExtra(IConstants.IntentStrings.payload, datamodel)
+                    intent.putExtra(IConstants.IntentStrings.courseType, courseType)
                     context.startActivity(intent)
                     (context as FragmentActivity).overridePendingTransition(R.anim.enter, R.anim.exit)
                 } else {
                     val intent = Intent(context, PlainActivity::class.java)
                     intent.putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.EbookSubjects)
                     intent.putExtra(IConstants.IntentStrings.payload, datamodel)
+                    intent.putExtra(IConstants.IntentStrings.courseType, courseType)
                     context.startActivity(intent)
                     (context as FragmentActivity).overridePendingTransition(
                         R.anim.enter,

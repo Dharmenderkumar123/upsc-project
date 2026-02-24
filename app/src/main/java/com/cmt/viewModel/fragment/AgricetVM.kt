@@ -30,8 +30,11 @@ class AgricetVM : ViewModel() {
     var order_id: String? = null
     var package_id: String? = null
     var amount: String? = null
+    var course_type: String? = null
+
     var model1: SubCourseModel?=null
-    fun setData(context: Context, model: SubCourseModel) {
+    fun setData(context: Context, model: SubCourseModel, courseType: String?) {
+        course_type=courseType
         model1=model
         val activity = context as? PlainActivity
         activity?.activityLoader(true)
@@ -122,6 +125,7 @@ class AgricetVM : ViewModel() {
         intent.putExtra(IConstants.IntentStrings.payload, "Buy Plan")
         intent.putExtra(IConstants.IntentStrings.id, model1?.sub_category_id.toString())
         intent.putExtra(IConstants.IntentStrings.cat_type, "1")
+        intent.putExtra(IConstants.IntentStrings.courseType, course_type)
         view.context.startActivity(intent)
         (view.context as FragmentActivity).overridePendingTransition(R.anim.enter, R.anim.exit)
 

@@ -9,9 +9,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.the_pride_ias.academy" />
-                  <option name="mobileSdkAppId" value="1:134490548666:android:08804cb4bf78391f025583" />
-                  <option name="projectId" value="the-pride-ias" />
-                  <option name="projectNumber" value="134490548666" />
+                  <option name="mobileSdkAppId" value="1:687039739702:android:0178b0290babcbd2d22597" />
+                  <option name="projectId" value="theprideias" />
+                  <option name="projectNumber" value="687039739702" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

@@ -65,8 +65,176 @@ class PdfActivity : AppCompatActivity() {
         }
 
         binding.tvTitle.text = getString(R.string.title_material)
+
+//        val url = intent.getStringExtra(IConstants.IntentStrings.payload)
+//        val sub_cat_id = intent.getStringExtra(IConstants.IntentStrings.sub_cat_id)
+//        val courseType = intent.getStringExtra(IConstants.IntentStrings.courseType)
+//        val is_purchased = intent.getStringExtra(IConstants.IntentStrings.is_purchased)
+//
+//        val pdfUrl = "https://docs.google.com/gview?embedded=true&url=$url"
+//        val finalUrl = getDirectPdfUrl(pdfUrl)
+//        Log.d("qdwqwd", "onCreate: ${url}")
+//        binding.pdfView.initWithUrl(
+//            url = finalUrl,
+//            lifecycleCoroutineScope = lifecycleScope,
+//            lifecycle = lifecycle
+//        )
+//
+//
+//        binding.pdfView.statusListener = object : PdfRendererView.StatusCallBack {
+//            override fun onPdfLoadStart() {
+//                Log.i("PDF Status", "Loading started")
+//                activityLoader(true)
+//            }
+//
+//            override fun onPdfLoadProgress(
+//                progress: Int,
+//                downloadedBytes: Long,
+//                totalBytes: Long?) {
+//            }
+//
+//            override fun onPdfLoadSuccess(absolutePath: String) {
+//                activityLoader(false)
+//                if(is_purchased!="true"){
+//                    with(binding) {
+//                        val totalPages = pdfView.totalPageCount
+//                        customScrollbar.max =  totalPages - 1
+//
+////                    val lockDecorator = PdfPageLockDecorator(this@PdfActivity, 50, onBuyClick = {})
+////                    pdfView.recyclerView.addItemDecoration(lockDecorator)
+//
+//
+//                        binding.customScrollbar.setScrollStateListener(object : VerticalSeekBar.ScrollStateListener {
+//
+//                            override fun onStartScrolling() {
+//                                isUserDraggingScrollbar = true
+//                                binding.pdfView.recyclerView.parent.requestDisallowInterceptTouchEvent(true)
+//                            }
+//
+//                            override fun onStopScrolling() {
+//                                isUserDraggingScrollbar = false
+//                                binding.pdfView.recyclerView.parent.requestDisallowInterceptTouchEvent(false)
+//                            }
+//
+//                            override fun onProgressChanged(progress: Int) {
+//                                val layoutManager = binding.pdfView.recyclerView.layoutManager as LinearLayoutManager
+//                                layoutManager.scrollToPositionWithOffset(progress, 0)
+//                            }
+//                        })
+//
+//                        customScrollbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+//                            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+//                                if (isUserDraggingScrollbar) {
+//                                    pendingScrollRunnable?.let { scrollHandler.removeCallbacks(it) }
+//
+//                                    pendingScrollRunnable = Runnable {
+//                                        val layoutManager = binding.pdfView.recyclerView.layoutManager as LinearLayoutManager
+//                                        layoutManager.scrollToPositionWithOffset(progress, 0)
+//                                    }
+//
+//                                    scrollHandler.postDelayed(pendingScrollRunnable!!, 15)
+//                                }
+//                            }
+//
+//                            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+//                                isUserDraggingScrollbar = true
+//                                binding.pdfView.recyclerView.parent.requestDisallowInterceptTouchEvent(true)
+//                            }
+//
+//                            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+//                                isUserDraggingScrollbar = false
+//                                binding.pdfView.recyclerView.parent.requestDisallowInterceptTouchEvent(false)
+//
+//                                val layoutManager = binding.pdfView.recyclerView.layoutManager as LinearLayoutManager
+//                                layoutManager.scrollToPositionWithOffset(seekBar?.progress ?: 0, 0)
+//                            }
+//                        })
+//
+////                    pdfView.recyclerView.addOnItemTouchListener(object : androidx.recyclerview.widget.RecyclerView.SimpleOnItemTouchListener() {
+////                        override fun onInterceptTouchEvent(rv: androidx.recyclerview.widget.RecyclerView, e: MotionEvent): Boolean {
+////                            if (e.action == MotionEvent.ACTION_UP) {
+////                                val child = rv.findChildViewUnder(e.x, e.y)
+////                                if (child != null) {
+////                                    val position = rv.getChildAdapterPosition(child)
+////                                    if (position >= 50) {
+////
+////                                        return true
+////                                    }
+////                                }
+////                            }
+////                            return false
+////                        }
+////                    })
+//
+//                        val decorator = PdfPageLockDecorator(this@PdfActivity, 50,R.drawable.upsc_image) {
+//                            val intent = Intent(this@PdfActivity, PlainActivity::class.java).apply {
+//                                putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.BuyPlan)
+//                                putExtra(IConstants.IntentStrings.payload, "Buy Plan")
+//                                putExtra(IConstants.IntentStrings.id, sub_cat_id)
+//                                putExtra(IConstants.IntentStrings.cat_type, "1")
+//                                putExtra(IConstants.IntentStrings.courseType, courseType)
+//                            }
+//                            startActivity(intent)
+//                        }
+//
+//                        pdfView.recyclerView.addItemDecoration(decorator)
+//
+//                        pdfView.recyclerView.addOnItemTouchListener(object : RecyclerView.SimpleOnItemTouchListener() {
+//                            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+//                                if (e.action == MotionEvent.ACTION_UP) {
+//                                    // Check every visible view in the RecyclerView
+//                                    for (i in 0 until rv.childCount) {
+//                                        val child = rv.getChildAt(i)
+//                                        val position = rv.getChildAdapterPosition(child)
+//
+//                                        if (position >= 50) { // Same limit as decorator
+//                                            val rect = decorator.getButtonRectForChild(child)
+//
+//                                            // Check if touch (e.x, e.y) is inside this specific button
+//                                            if (rect.contains(e.x, e.y)) {
+//                                                decorator.onBuyClick()
+//                                                return true // Event handled, don't scroll the PDF
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                                return false
+//                            }
+//                        })
+//                    }
+//                }
+//            }
+//
+//
+//
+//            override fun onPageChanged(currentPage: Int, totalPage: Int) {
+//                if (!isUserDraggingScrollbar) {
+//                    binding.customScrollbar.progress = currentPage
+//                }
+//            }
+//
+//            override fun onError(error: Throwable) {
+//                Log.e("PDF Status", "Error: ${error.message}")
+//                activityLoader(false)
+//            }
+//
+//            override fun onPdfRenderStart() {}
+//
+//            override fun onPdfRenderSuccess() {
+//                activityLoader(false)
+//
+//                Log.i("PDF Status", "Render successful")
+//            }
+//        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         val url = intent.getStringExtra(IConstants.IntentStrings.payload)
         val sub_cat_id = intent.getStringExtra(IConstants.IntentStrings.sub_cat_id)
+        val courseType = intent.getStringExtra(IConstants.IntentStrings.courseType)
+        val is_purchased = intent.getStringExtra(IConstants.IntentStrings.is_purchased)
 
         val pdfUrl = "https://docs.google.com/gview?embedded=true&url=$url"
         val finalUrl = getDirectPdfUrl(pdfUrl)
@@ -92,59 +260,60 @@ class PdfActivity : AppCompatActivity() {
 
             override fun onPdfLoadSuccess(absolutePath: String) {
                 activityLoader(false)
-                with(binding) {
-                    val totalPages = pdfView.totalPageCount
-                    customScrollbar.max =  totalPages - 1
+                if(is_purchased!="true"){
+                    with(binding) {
+                        val totalPages = pdfView.totalPageCount
+                        customScrollbar.max =  totalPages - 1
 
 //                    val lockDecorator = PdfPageLockDecorator(this@PdfActivity, 50, onBuyClick = {})
 //                    pdfView.recyclerView.addItemDecoration(lockDecorator)
 
 
-                    binding.customScrollbar.setScrollStateListener(object : VerticalSeekBar.ScrollStateListener {
+                        binding.customScrollbar.setScrollStateListener(object : VerticalSeekBar.ScrollStateListener {
 
-                        override fun onStartScrolling() {
-                            isUserDraggingScrollbar = true
-                            binding.pdfView.recyclerView.parent.requestDisallowInterceptTouchEvent(true)
-                        }
-
-                        override fun onStopScrolling() {
-                            isUserDraggingScrollbar = false
-                            binding.pdfView.recyclerView.parent.requestDisallowInterceptTouchEvent(false)
-                        }
-
-                        override fun onProgressChanged(progress: Int) {
-                            val layoutManager = binding.pdfView.recyclerView.layoutManager as LinearLayoutManager
-                            layoutManager.scrollToPositionWithOffset(progress, 0)
-                        }
-                    })
-
-                    customScrollbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                        override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                            if (isUserDraggingScrollbar) {
-                                pendingScrollRunnable?.let { scrollHandler.removeCallbacks(it) }
-
-                                pendingScrollRunnable = Runnable {
-                                    val layoutManager = binding.pdfView.recyclerView.layoutManager as LinearLayoutManager
-                                    layoutManager.scrollToPositionWithOffset(progress, 0)
-                                }
-
-                                scrollHandler.postDelayed(pendingScrollRunnable!!, 15)
+                            override fun onStartScrolling() {
+                                isUserDraggingScrollbar = true
+                                binding.pdfView.recyclerView.parent.requestDisallowInterceptTouchEvent(true)
                             }
-                        }
 
-                        override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                            isUserDraggingScrollbar = true
-                            binding.pdfView.recyclerView.parent.requestDisallowInterceptTouchEvent(true)
-                        }
+                            override fun onStopScrolling() {
+                                isUserDraggingScrollbar = false
+                                binding.pdfView.recyclerView.parent.requestDisallowInterceptTouchEvent(false)
+                            }
 
-                        override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                            isUserDraggingScrollbar = false
-                            binding.pdfView.recyclerView.parent.requestDisallowInterceptTouchEvent(false)
+                            override fun onProgressChanged(progress: Int) {
+                                val layoutManager = binding.pdfView.recyclerView.layoutManager as LinearLayoutManager
+                                layoutManager.scrollToPositionWithOffset(progress, 0)
+                            }
+                        })
 
-                            val layoutManager = binding.pdfView.recyclerView.layoutManager as LinearLayoutManager
-                            layoutManager.scrollToPositionWithOffset(seekBar?.progress ?: 0, 0)
-                        }
-                    })
+                        customScrollbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                                if (isUserDraggingScrollbar) {
+                                    pendingScrollRunnable?.let { scrollHandler.removeCallbacks(it) }
+
+                                    pendingScrollRunnable = Runnable {
+                                        val layoutManager = binding.pdfView.recyclerView.layoutManager as LinearLayoutManager
+                                        layoutManager.scrollToPositionWithOffset(progress, 0)
+                                    }
+
+                                    scrollHandler.postDelayed(pendingScrollRunnable!!, 15)
+                                }
+                            }
+
+                            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                                isUserDraggingScrollbar = true
+                                binding.pdfView.recyclerView.parent.requestDisallowInterceptTouchEvent(true)
+                            }
+
+                            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                                isUserDraggingScrollbar = false
+                                binding.pdfView.recyclerView.parent.requestDisallowInterceptTouchEvent(false)
+
+                                val layoutManager = binding.pdfView.recyclerView.layoutManager as LinearLayoutManager
+                                layoutManager.scrollToPositionWithOffset(seekBar?.progress ?: 0, 0)
+                            }
+                        })
 
 //                    pdfView.recyclerView.addOnItemTouchListener(object : androidx.recyclerview.widget.RecyclerView.SimpleOnItemTouchListener() {
 //                        override fun onInterceptTouchEvent(rv: androidx.recyclerview.widget.RecyclerView, e: MotionEvent): Boolean {
@@ -162,40 +331,42 @@ class PdfActivity : AppCompatActivity() {
 //                        }
 //                    })
 
-                    val decorator = PdfPageLockDecorator(this@PdfActivity, 50,R.drawable.upsc_image) {
-                        val intent = Intent(this@PdfActivity, PlainActivity::class.java).apply {
-                            putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.BuyPlan)
-                            putExtra(IConstants.IntentStrings.payload, "Buy Plan")
-                            putExtra(IConstants.IntentStrings.id, sub_cat_id)
-                            putExtra(IConstants.IntentStrings.cat_type, "1")
+                        val decorator = PdfPageLockDecorator(this@PdfActivity, 50,R.drawable.upsc_image) {
+                            val intent = Intent(this@PdfActivity, PlainActivity::class.java).apply {
+                                putExtra(IConstants.IntentStrings.type, IConstants.FragmentType.BuyPlan)
+                                putExtra(IConstants.IntentStrings.payload, "Buy Plan")
+                                putExtra(IConstants.IntentStrings.id, sub_cat_id)
+                                putExtra(IConstants.IntentStrings.cat_type, "1")
+                                putExtra(IConstants.IntentStrings.courseType, courseType)
+                            }
+                            startActivity(intent)
                         }
-                        startActivity(intent)
-                    }
 
-                    pdfView.recyclerView.addItemDecoration(decorator)
+                        pdfView.recyclerView.addItemDecoration(decorator)
 
-                    pdfView.recyclerView.addOnItemTouchListener(object : RecyclerView.SimpleOnItemTouchListener() {
-                        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                            if (e.action == MotionEvent.ACTION_UP) {
-                                // Check every visible view in the RecyclerView
-                                for (i in 0 until rv.childCount) {
-                                    val child = rv.getChildAt(i)
-                                    val position = rv.getChildAdapterPosition(child)
+                        pdfView.recyclerView.addOnItemTouchListener(object : RecyclerView.SimpleOnItemTouchListener() {
+                            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                                if (e.action == MotionEvent.ACTION_UP) {
+                                    // Check every visible view in the RecyclerView
+                                    for (i in 0 until rv.childCount) {
+                                        val child = rv.getChildAt(i)
+                                        val position = rv.getChildAdapterPosition(child)
 
-                                    if (position >= 50) { // Same limit as decorator
-                                        val rect = decorator.getButtonRectForChild(child)
+                                        if (position >= 50) { // Same limit as decorator
+                                            val rect = decorator.getButtonRectForChild(child)
 
-                                        // Check if touch (e.x, e.y) is inside this specific button
-                                        if (rect.contains(e.x, e.y)) {
-                                            decorator.onBuyClick()
-                                            return true // Event handled, don't scroll the PDF
+                                            // Check if touch (e.x, e.y) is inside this specific button
+                                            if (rect.contains(e.x, e.y)) {
+                                                decorator.onBuyClick()
+                                                return true // Event handled, don't scroll the PDF
+                                            }
                                         }
                                     }
                                 }
+                                return false
                             }
-                            return false
-                        }
-                    })
+                        })
+                    }
                 }
             }
 

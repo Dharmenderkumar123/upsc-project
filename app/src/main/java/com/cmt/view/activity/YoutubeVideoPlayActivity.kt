@@ -111,6 +111,9 @@ class YoutubeVideoPlayActivity : AppCompatActivity() {
 
 
 
+
+
+
         binding.webView.apply {
             // 1. Essential Settings
             settings.javaScriptEnabled = true
@@ -123,7 +126,56 @@ class YoutubeVideoPlayActivity : AppCompatActivity() {
             webViewClient = WebViewClient()
 
             // 4. Load the URL directly
-            loadUrl(id)
+//            loadUrl(id)
+
+
+            val data_html = """
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <style>
+                    body, html { 
+                        margin: 0; 
+                        padding: 0; 
+                        height: 100%; 
+                        width: 100%; 
+                        background: black; 
+                        overflow: hidden;
+                    }
+                    .video-container {
+                        position: relative;
+                        width: 100vw;
+                        height: 100vh;
+                    }
+                    iframe { 
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        border: none;
+                        /* This is the key to removing side bars */
+                        object-fit: cover; 
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="video-container">
+                    <iframe
+                        src="$id?autoplay=1&modestbranding=1&rel=0"
+                        allow="autoplay; fullscreen"
+                        frameborder="0">
+                    </iframe>
+                </div>
+            </body>
+            </html>
+        """.trimIndent()
+
+            // Use loadDataWithBaseURL to avoid "file not found" or origin issues
+            loadDataWithBaseURL(null, data_html, "text/html", "UTF-8", null)
+
+
         }
 //        loadWebView(id)
     }

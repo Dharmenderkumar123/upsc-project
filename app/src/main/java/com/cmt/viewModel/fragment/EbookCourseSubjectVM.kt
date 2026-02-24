@@ -2,25 +2,23 @@ package com.cmt.viewModel.fragment
 
 import android.view.View
 import androidx.lifecycle.ViewModel
-import com.cmt.adapter.CoursesSubCategoryAdapter
 import com.cmt.adapter.EbookCourseSubjectAdapter
+import com.cmt.helper.AppPreferences
 import com.cmt.helper.IConstants
 import com.cmt.helper.getGlobalParams
 import com.cmt.helper.setSnackBar
 import com.cmt.services.api.EbookAPI
-import com.cmt.services.api.SubCategoriesAPI
 import com.cmt.services.helper.RetrofitCallBack
 import com.cmt.services.model.APIResponse
 import com.cmt.services.model.EbookCourseSubjectModel
 import com.cmt.services.model.SubCourseModel
-import com.cmt.view.activity.FullPlainActivity
 import com.cmt.view.activity.PlainActivity
 import com.the_pride_ias.databinding.FragmentEbookCourseSubjectsBinding
 
 class EbookCourseSubjectVM : ViewModel() {
     lateinit var binding: FragmentEbookCourseSubjectsBinding
 
-    fun setData(view: View, model: SubCourseModel) {
+    fun setData(view: View, model: SubCourseModel, courseType: String) {
         val activity = view.context as? PlainActivity
         activity?.activityLoader(true)
         val params = getGlobalParams(view.context)
@@ -30,6 +28,9 @@ class EbookCourseSubjectVM : ViewModel() {
         model.sub_category_id.toString().let {
             params[IConstants.Params.sub_category_id] = it
         }
+
+        params[IConstants.Params.user_id] = AppPreferences().getUserId(view.context)
+
         EbookAPI().eBookList(params, object : RetrofitCallBack {
             override fun responseListener(response: Any?, error: String?) {
                 activity?.activityLoader(false)
@@ -42,7 +43,7 @@ class EbookCourseSubjectVM : ViewModel() {
                             (apiResponse.data as MutableList<*>).filterIsInstance<EbookCourseSubjectModel>()
                                 .toMutableList()
                         binding.recycleView.apply {
-                            adapter = EbookCourseSubjectAdapter(binding.root.context, dataResponse)
+                            adapter = EbookCourseSubjectAdapter(binding.root.context, dataResponse,courseType)
                         }
 
                     } else {

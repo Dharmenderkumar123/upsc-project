@@ -6,4 +6,5 @@ class EbookCourseSubjectModel {
     var image : String? = null
     var sub_cat_id: String?=null
     var pdf : String? = null
+    val is_purchased: Boolean=false
 }

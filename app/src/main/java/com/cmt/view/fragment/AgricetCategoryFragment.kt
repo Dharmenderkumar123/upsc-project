@@ -20,7 +20,7 @@ import com.the_pride_ias.R
 import com.the_pride_ias.databinding.FragmentAgricetCategoryBinding
 
 
-class AgricetCategoryFragment(var model: SubCourseModel) : Fragment() {
+class AgricetCategoryFragment(var model: SubCourseModel,val courseType: String?) : Fragment() {
     lateinit var binding: FragmentAgricetCategoryBinding
 
     override fun onCreateView(
@@ -67,7 +67,7 @@ class AgricetCategoryFragment(var model: SubCourseModel) : Fragment() {
                         adapter = it.subjects?.let { it1 ->
                             it.image?.let { it2 ->
                                 it.description?.let { it3 ->
-                                    AgricetCategoryAdapter(binding.root.context, it1, it2, it3, it,model.is_purchased,model.sub_category_id,it.paid_status)
+                                    AgricetCategoryAdapter(binding.root.context, it1, it2, it3, it,model.is_purchased,model.sub_category_id,it.paid_status,courseType)
                                 }
                             }
                         }
@@ -84,7 +84,7 @@ class AgricetCategoryFragment(var model: SubCourseModel) : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        binding.viewModel?.setData(requireActivity(), model)
+        binding.viewModel?.setData(requireActivity(), model,courseType)
     }
 
 

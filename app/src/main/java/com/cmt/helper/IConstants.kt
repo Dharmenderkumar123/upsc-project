@@ -12,6 +12,7 @@ interface IConstants {
         const val title = "title"
         const val userId = "userId"
         const val courseType = "courseType"
+        const val is_purchased = "is_purchased"
         const val course = "course"
         const val ebook = "ebook"
         const val image = "image"
@@ -25,6 +26,7 @@ interface IConstants {
         const val examId = "examId"
         const val result = "result"
         const val catType = "catType"
+        const val myType = "myType"
     }
 
     object ValidateStrings{
@@ -103,6 +105,7 @@ interface IConstants {
         const val tracking_id = "tracking_id"
         var package_id = "package_id"
         const val amount = "amount"
+        const val package_type = "package_type"
         const val order_id = "order_id"
         const val Type = "type"
         const val item_id = "item_id"

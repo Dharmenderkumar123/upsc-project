@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cmt.helper.IConstants
 import com.cmt.services.model.EbookCourseSubjectModel
-import com.cmt.view.activity.MainActivity
 import com.cmt.view.activity.PdfActivity
 import com.cmt.view.activity.PlainActivity
 import com.the_pride_ias.R
@@ -15,7 +14,8 @@ import com.the_pride_ias.databinding.ItemsEbookCourseSubjectsBinding
 
 class EbookCourseSubjectAdapter(
     val context: Context,
-    val dataset: MutableList<EbookCourseSubjectModel>
+    val dataset: MutableList<EbookCourseSubjectModel>,
+    val courseType: String
 ) :
     RecyclerView.Adapter<EbookCourseSubjectAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemsEbookCourseSubjectsBinding) :
@@ -29,6 +29,8 @@ class EbookCourseSubjectAdapter(
                 intent.putExtra(IConstants.IntentStrings.payload, dataModel.pdf)
                 intent.putExtra(IConstants.IntentStrings.cat_type, "1")
                 intent.putExtra(IConstants.IntentStrings.sub_cat_id, dataModel.sub_cat_id)
+                intent.putExtra(IConstants.IntentStrings.courseType, courseType)
+                intent.putExtra(IConstants.IntentStrings.is_purchased, dataModel.is_purchased.toString())
                 activity?.startActivity(intent)
                 activity?.overridePendingTransition(R.anim.enter, R.anim.exit)
             }

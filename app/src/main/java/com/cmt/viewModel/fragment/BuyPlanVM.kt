@@ -11,7 +11,6 @@ import com.cmt.adapter.BuyPackagesAdapter
 import com.cmt.adapter.onPackage
 import com.cmt.helper.AppPreferences
 import com.cmt.helper.IConstants
-import com.cmt.helper.IConstants.Params.package_id
 import com.cmt.helper.getGlobalParams
 import com.cmt.helper.setSnackBar
 import com.cmt.services.api.BuyPlanApi
@@ -19,11 +18,9 @@ import com.cmt.services.api.PaymentAPI
 import com.cmt.services.helper.RetrofitCallBack
 import com.cmt.services.model.APIResponse
 import com.cmt.services.model.PackagesModel
-import com.cmt.services.model.PaymentModel
 import com.cmt.services.model.SubjectsListModel
 import com.cmt.view.activity.FullPlainActivity
 import com.cmt.view.activity.PlainActivity
-import com.cmt.view.fragment.PaymentDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.the_pride_ias.R
 import com.the_pride_ias.databinding.FragmentBuyPlanBinding
@@ -39,8 +36,15 @@ class BuyPlanVM: ViewModel(), onPackage {
     var paymentSuccessHashMap: HashMap<String, String> = HashMap()
     var amount: String = ""
     var package_idd: String=""
-    fun getData(view: View, requireActivity: FragmentActivity, id1: String?, type: Int){
-
+    var courseTypee: String=""
+    fun getData(
+        view: View,
+        requireActivity: FragmentActivity,
+        id1: String?,
+        type: Int,
+        courseType: String?
+    ){
+        courseTypee=courseType.toString()
         val activity = view.context as? FullPlainActivity
         binding.buyNowBtn.setOnClickListener {
             if (amount.isBlank() || amount.trim() == "0") {
@@ -57,6 +61,7 @@ class BuyPlanVM: ViewModel(), onPackage {
         }else{
             hm["sub_category_id"]=id1.toString()
         }
+        hm["package_type"]= courseType.toString()
 
         BuyPlanApi().getPlans( hm,object : RetrofitCallBack {
             override fun responseListener(response: Any?, error: String?) {
@@ -151,14 +156,14 @@ class BuyPlanVM: ViewModel(), onPackage {
         activity?.activityLoader(true)
         val params: HashMap<String, String> = HashMap()
         params[IConstants.Params.user_id] =
-            activity?.let { AppPreferences().getUserId(it) }.toString()
+        activity?.let { AppPreferences().getUserId(it) }.toString()
         params[IConstants.Params.tracking_id] = txn
         params[IConstants.Params.order_id] = order_id.toString()
         params[IConstants.Params.item_id] = package_idd.toString()
-        params[IConstants.Params.Type] = "package"
+        params[IConstants.Params.Type] = if(courseTypee.trim() =="course") "package" else "notes"
         params[IConstants.Params.amount] = amount.toString()
         params[IConstants.Params.Status] = "success"
-
+1
         PaymentAPI().paySuccess(params, object : RetrofitCallBack {
             @SuppressLint("SetTextI18n")
             override fun responseListener(response: Any?, error: String?) {

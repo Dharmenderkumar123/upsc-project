@@ -22,7 +22,7 @@ class BuyPackagesAdapter(val context: Context,var dataResponse: MutableList<Pack
            tvPackageName.text= model.packageDes
            tvDesc.text= model.description
            tvRupess.text = "₹ "+model.price
-           tvRupess.text= "${model.days} days access"
+           tvTimePeriod.text= "${model.days} days access"
         }
 
         holder.itemView.setOnClickListener {

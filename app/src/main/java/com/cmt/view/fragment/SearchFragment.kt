@@ -69,6 +69,7 @@ class SearchFragment : Fragment() {
                             it,
                             isPurchased = false,
                             subCategoryId = "1",
+                            courseType = "course",
                         )
                     }
                 }

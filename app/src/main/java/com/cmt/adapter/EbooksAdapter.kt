@@ -26,6 +26,8 @@ class EbooksAdapter(val context: Context, val dataset: MutableList<EbookDataMode
                 intent.putExtra(IConstants.IntentStrings.payload, datamodel.pdf)
                 intent.putExtra(IConstants.IntentStrings.sub_cat_id, datamodel.sub_cat_id.toString())
                 intent.putExtra(IConstants.IntentStrings.cat_type, "1")
+                intent.putExtra(IConstants.IntentStrings.courseType, "notes")
+                intent.putExtra(IConstants.IntentStrings.is_purchased, datamodel.is_purchased.toString())
                 activity?.startActivity(intent)
                 activity?.overridePendingTransition(R.anim.enter, R.anim.exit)
             }
